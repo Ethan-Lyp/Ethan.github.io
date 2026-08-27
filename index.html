@@ -6,7 +6,22 @@
     <title>郭振城 · Java / 全栈开发 · AI Agent</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        /* ===== 全局重置 ===== */
+        /* ===== 设计变量（深蓝夜主题） ===== */
+        :root {
+            --bg: #0d1628;
+            --paper: #111e30;
+            --card: #16283c;
+            --ink: #eaf2fb;
+            --ink-2: #b0cce5;
+            --muted: #7a97b7;
+            --accent: #6c9eff;
+            --accent-soft: rgba(108, 158, 255, .12);
+            --line: #1a283c;
+            --line-strong: #2a4060;
+            --body: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+            --mono: 'JetBrains Mono', 'Cascadia Code', 'SFMono-Regular', Consolas, monospace;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -18,21 +33,26 @@
         }
 
         body {
-            font-family: 'Segoe UI', 'PingFang SC', Roboto, 'Helvetica Neue', system-ui, sans-serif;
-            background-color: #0d1628;
-            color: #d6e2f0;
+            font-family: var(--body);
+            background-color: var(--bg);
+            color: var(--ink);
             line-height: 1.8;
             padding: 0 24px;
             padding-top: 70px;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1040px;
             margin: 0 auto;
             padding: 0 16px;
         }
 
-        /* ===== 固定顶部导航栏 ===== */
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* ===== 顶部导航 ===== */
         .navbar {
             position: fixed;
             top: 0;
@@ -42,7 +62,7 @@
             background: rgba(13, 22, 40, 0.92);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid #1e2d42;
+            border-bottom: 1px solid var(--line);
             padding: 0 24px;
             height: 64px;
             display: flex;
@@ -50,7 +70,7 @@
         }
 
         .nav-container {
-            max-width: 1000px;
+            max-width: 1040px;
             width: 100%;
             margin: 0 auto;
             display: flex;
@@ -59,28 +79,30 @@
         }
 
         .nav-logo {
-            font-size: 1rem;
+            font-family: var(--mono);
+            font-size: 0.95rem;
             font-weight: 700;
             color: #ffffff;
             letter-spacing: 2px;
             text-decoration: none;
             white-space: nowrap;
         }
+
         .nav-logo span {
-            color: #6c9eff;
+            color: var(--accent);
         }
 
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 8px;
+            gap: 6px;
             align-items: center;
             margin: 0;
             padding: 0;
         }
 
         .nav-menu li a {
-            color: #a0bcd9;
+            color: var(--ink-2);
             text-decoration: none;
             font-size: 0.85rem;
             padding: 6px 14px;
@@ -94,466 +116,654 @@
         .nav-menu li a:hover,
         .nav-menu li a.active {
             color: #ffffff;
-            background: rgba(108, 158, 255, 0.15);
+            background: var(--accent-soft);
         }
 
         .nav-toggle {
             display: none;
-            color: #a0bcd9;
+            color: var(--ink-2);
             font-size: 1.4rem;
             cursor: pointer;
             background: none;
             border: none;
             padding: 4px 8px;
         }
-        .nav-toggle:hover {
-            color: #ffffff;
-        }
 
         /* ===== HERO ===== */
         .hero {
             min-height: calc(100vh - 64px);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            gap: 48px;
             align-items: center;
-            text-align: center;
-            padding: 50px 20px 40px;
-            border-bottom: 1px solid #1e2d42;
-            scroll-margin-top: 64px;
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 24px 16px;
         }
 
-        /* 头像 + 名字 行 */
-        .hero-top {
-            display: flex;
-            align-items: center;
-            gap: 28px;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
-            justify-content: center;
+        .hero-label {
+            font-family: var(--mono);
+            font-size: 12px;
+            letter-spacing: 4px;
+            color: var(--accent);
+            text-transform: uppercase;
         }
 
-        .hero-avatar {
-            width: 240px;
-            height: 240px;
-            border-radius: 50%;
-            border: 3px solid #6c9eff;
-            box-shadow: 0 0 30px rgba(108, 158, 255, 0.25);
-            overflow: hidden;
-            flex-shrink: 0;
-            background: #1a2a40;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.8rem;
-            font-weight: 700;
-            color: #6c9eff;
+        .hero-label::before {
+            content: "";
+            display: inline-block;
+            width: 34px;
+            height: 2px;
+            background: var(--accent);
+            margin-right: 12px;
+            vertical-align: middle;
         }
 
-        .hero-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center 15%;  /* 将图片下移，露出头顶 */
-            display: block;
-        }
-
-        .hero-name-group {
-            text-align: left;
-        }
-
-        .hero-name-group h1 {
-            font-size: 3.6rem;
-            font-weight: 700;
-            letter-spacing: 6px;
+        .hero h1 {
+            font-size: clamp(34px, 5vw, 54px);
+            font-weight: 800;
+            line-height: 1.15;
             color: #ffffff;
-            line-height: 1.1;
-        }
-
-        .hero-name-group .subtitle {
-            font-size: 1.3rem;
-            font-weight: 300;
-            color: #8eb3d6;
-        }
-
-        .hero-name-group .badge {
-            font-size: 0.95rem;
-            color: #5a7a9a;
+            margin: 16px 0 0;
             letter-spacing: 2px;
         }
 
-        .hero .desc {
-            font-size: 1.05rem;
-            max-width: 700px;
-            color: #a0bcd9;
-            line-height: 2;
-            border-top: 1px solid #1e2d42;
-            padding-top: 22px;
-            margin-top: 8px;
-        }
-
-        .hero .scroll {
-            margin-top: 42px;
-            color: #4a6a8a;
-            font-size: 0.78rem;
-            letter-spacing: 4px;
-            animation: bounce 2s infinite;
-        }
-
-        .hero .scroll i {
+        .hero h1 .en {
             display: block;
-            font-size: 1.3rem;
-            margin-top: 6px;
+            font-family: var(--mono);
+            font-weight: 600;
+            font-size: clamp(14px, 2vw, 18px);
+            color: var(--ink-2);
+            letter-spacing: 4px;
+            margin-top: 12px;
+            text-transform: uppercase;
         }
 
-        @keyframes bounce {
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(8px);
-            }
+        .hero .titleline {
+            font-size: 17px;
+            font-weight: 500;
+            color: var(--ink-2);
+            margin: 18px 0 14px;
+        }
+
+        .hero .bio {
+            color: var(--muted);
+            max-width: 54ch;
+            font-size: 15px;
+            line-height: 1.95;
+        }
+
+        .hero .cta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 26px;
+        }
+
+        .btn {
+            display: inline-block;
+            font-family: var(--body);
+            font-weight: 500;
+            font-size: 14px;
+            padding: 11px 24px;
+            border-radius: 999px;
+            text-decoration: none;
+            transition: all .3s ease-in-out;
+        }
+
+        .btn-fill {
+            background: var(--ink);
+            color: #0d1628;
+        }
+
+        .btn-fill:hover {
+            background: var(--accent);
+            color: #0b1220;
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            border: 1px solid var(--line-strong);
+            color: var(--ink);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+        }
+
+        .avatar {
+            margin: 0;
+            text-align: center;
+        }
+
+        .avatar img {
+            width: 240px;
+            height: 240px;
+            max-width: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 0 6px var(--accent-soft);
+            background: var(--paper);
+            display: block;
+        }
+
+        .avatar .avatar-fallback {
+            width: 240px;
+            height: 240px;
+            max-width: 100%;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent);
+            background: linear-gradient(135deg, #1a2a40, #0d1628);
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 0 6px var(--accent-soft);
+        }
+
+        .avatar figcaption {
+            margin-top: 16px;
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: var(--muted);
+        }
+
+        .scroll-hint {
+            text-align: center;
+            margin: 0 0 24px;
+            color: var(--muted);
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 4px;
         }
 
         /* ===== 通用章节 ===== */
         section {
-            padding: 60px 0 44px;
-            border-bottom: 1px solid #1a283c;
-            scroll-margin-top: 70px;
+            padding: 64px 0 48px;
+            border-bottom: 1px solid var(--line);
+            scroll-margin-top: 80px;
         }
+
         section:last-of-type {
             border-bottom: none;
         }
 
-        .section-title {
-            font-size: 1.9rem;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 24px;
+        .sec-head {
             display: flex;
-            align-items: center;
-            gap: 14px;
+            align-items: baseline;
+            gap: 18px;
+            margin-bottom: 30px;
         }
 
-        .section-title .num {
-            font-size: 1rem;
-            color: #6c9eff;
-            background: #1a2a40;
-            padding: 0 16px;
-            border-radius: 30px;
-            font-weight: 500;
-            border: 1px solid #2a4060;
+        .sec-head .no {
+            font-family: var(--mono);
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--accent);
+            letter-spacing: 1px;
+            transform: translateY(-2px);
         }
 
-        .section-title .en {
-            font-size: 1rem;
-            font-weight: 300;
-            color: #5a7a9a;
-            margin-left: 2px;
+        .sec-head h2 {
+            font-weight: 700;
+            font-size: clamp(24px, 3.2vw, 30px);
+            margin: 0;
+            letter-spacing: 2px;
+            color: #ffffff;
+            line-height: 1.2;
         }
 
-        /* ===== 01 作品展示 - 列表布局 ===== */
-        .showcase-list {
+        .sec-head .en {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: var(--muted);
+            text-transform: uppercase;
+            transform: translateY(-2px);
+        }
+
+        .sec-head .rule {
+            flex: 1;
+            height: 1px;
+            background: var(--line-strong);
+            align-self: center;
+            transform: translateY(4px);
+        }
+
+        /* ===== 标签徽章 ===== */
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            font-family: var(--mono);
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            color: var(--ink-2);
+            background: var(--accent-soft);
+            border: 1px solid rgba(108, 158, 255, .22);
+            padding: 4px 12px;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+
+        /* ===== 01 作品展示 ===== */
+        .showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 22px;
+        }
+
+        .show {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            gap: 28px;
+            transition: border-color .3s, transform .3s;
         }
 
-        .showcase-item {
-            display: flex;
-            gap: 22px;
-            background: #111e30;
-            border-radius: 14px;
-            padding: 18px 20px;
-            border: 1px solid #1e3048;
-            transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
-            align-items: flex-start;
+        .show:hover {
+            border-color: var(--line-strong);
+            transform: translateY(-4px);
         }
 
-        .showcase-item:hover {
-            transform: translateY(-3px);
-            border-color: #3a5a7a;
-            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
-        }
-
-        /* 缩略图 */
-        .showcase-thumb {
-            flex-shrink: 0;
-            width: 200px;
-            height: 130px;
-            border-radius: 10px;
-            overflow: hidden;
-            cursor: pointer;
-            border: 1px solid #2a4060;
-            background: #0a1522;
+        .show .media {
             position: relative;
-            transition: border-color 0.2s;
+            aspect-ratio: 16 / 10;
+            background: #0a1522;
+            overflow: hidden;
         }
 
-        .showcase-thumb:hover {
-            border-color: #6c9eff;
-        }
-
-        .showcase-thumb img {
+        .show .media img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            cursor: zoom-in;
             display: block;
         }
 
-        .showcase-thumb .placeholder {
-            width: 100%;
-            height: 100%;
+        .show .media .placeholder {
+            position: absolute;
+            inset: 0;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 0.8rem;
-            color: #5a7a9a;
-            background: linear-gradient(135deg, #1a2a40, #0d1628);
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .showcase-thumb .placeholder i {
-            font-size: 2rem;
-            color: #3a5a7a;
-        }
-
-        /* 右侧内容 */
-        .showcase-body {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .showcase-body .item-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 2px;
-        }
-
-        .showcase-body .item-sub {
-            font-size: 0.85rem;
-            color: #6c9eff;
-            font-weight: 400;
-        }
-
-        .showcase-body .item-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin: 6px 0 8px;
-        }
-
-        .showcase-body .item-tags span {
-            background: #1a2a40;
-            color: #8eb3d6;
-            font-size: 0.7rem;
-            padding: 2px 12px;
-            border-radius: 12px;
-            border: 1px solid #2a4060;
-        }
-
-        .showcase-body .item-desc {
-            font-size: 0.92rem;
-            color: #b0cce5;
-            line-height: 1.7;
-        }
-
-        .showcase-body .item-links {
-            margin-top: 10px;
-            display: flex;
-            gap: 20px;
-            font-size: 0.85rem;
-            color: #6c9eff;
-        }
-
-        .showcase-body .item-links i {
-            margin-right: 6px;
-        }
-
-        .showcase-body .item-links span {
-            cursor: default;
-        }
-
-        .showcase-body .item-links a {
-            color: #6c9eff;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .showcase-body .item-links a:hover {
-            color: #8eb3ff;
-        }
-
-        /* ===== 02 个人信息 ===== */
-        .profile-table {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-            gap: 4px 28px;
-            background: #111e30;
-            padding: 18px 26px;
-            border-radius: 14px;
-            border: 1px solid #1e3048;
-        }
-
-        .profile-table .row {
-            display: flex;
             gap: 8px;
-            font-size: 0.95rem;
-            padding: 3px 0;
+            color: var(--accent);
+            font-size: 2.4rem;
         }
 
-        .profile-table .row .label {
-            color: #6a8aaa;
-            min-width: 52px;
+        .show .media .placeholder span {
+            font-size: 0.9rem;
+            color: var(--muted);
         }
 
-        .profile-table .row .value {
-            color: #e0edf9;
+        .show .stage {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 2;
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: #ffffff;
+            background: rgba(108, 158, 255, .28);
+            border: 1px solid rgba(108, 158, 255, .45);
+            padding: 3px 10px;
+            border-radius: 999px;
+        }
+
+        .show .body {
+            padding: 18px 20px 20px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .show .body h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 0 8px;
+        }
+
+        .show .body p {
+            margin: 0 0 14px;
+            font-size: 13.5px;
+            color: var(--muted);
+        }
+
+        .show .body .tag-row {
+            margin-bottom: 14px;
+        }
+
+        .show .item-links {
+            margin-top: auto;
+            display: flex;
+            gap: 18px;
+            font-size: 13px;
+        }
+
+        .show .item-links a,
+        .show .item-links span {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* ===== 02 个人信息（档案卡片） ===== */
+        .dossier {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 34px;
+            overflow: hidden;
+        }
+
+        .dossier-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0;
+        }
+
+        .d-item {
+            display: flex;
+            gap: 16px;
+            padding: 15px 4px;
+            border-bottom: 1px solid var(--line);
+            align-items: flex-start;
+            transition: background 0.2s;
+        }
+
+        .d-item:nth-last-child(-n+2) {
+            border-bottom: none;
+        }
+
+        .d-item:hover {
+            background: var(--accent-soft);
+        }
+
+        .d-item .k {
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--accent);
+            min-width: 74px;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+            transform: translateY(2px);
+        }
+
+        .d-item .v {
+            font-size: 15px;
+            color: var(--ink);
         }
 
         /* ===== 03 个人简介 ===== */
-        .about-box {
-            font-size: 1rem;
-            color: #b0cce5;
-            max-width: 820px;
-            background: #111e30;
-            padding: 20px 28px;
-            border-radius: 14px;
-            border: 1px solid #1e3048;
-            border-left: 4px solid #6c9eff;
+        .intro {
+            font-size: 15.5px;
+            color: var(--ink-2);
+            max-width: 860px;
+            line-height: 2;
+        }
+
+        .intro b {
+            color: #ffffff;
+            font-weight: 600;
         }
 
         /* ===== 04 个人能力 ===== */
-        .skills-grid {
+        .skill-list {
+            border-top: 1px solid var(--line-strong);
+        }
+
+        .skill-row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-            gap: 14px 26px;
+            grid-template-columns: 46px 1.1fr 2fr;
+            gap: 18px;
+            align-items: baseline;
+            padding: 17px 4px;
+            border-bottom: 1px solid var(--line);
+            transition: all .3s ease-in-out;
         }
 
-        .skills-grid .skill {
-            display: flex;
-            gap: 14px;
-            padding: 14px 18px;
-            background: #111e30;
+        .skill-row:hover {
+            background: var(--accent-soft);
+            padding-left: 12px;
+            padding-right: 12px;
             border-radius: 12px;
-            border: 1px solid #1e3048;
-            transition: background 0.2s, border-color 0.2s;
         }
 
-        .skills-grid .skill:hover {
-            background: #162838;
-            border-color: #2a4a6a;
+        .skill-row .idx {
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--muted);
         }
 
-        .skills-grid .skill .idx {
-            font-weight: 700;
-            color: #6c9eff;
-            font-size: 0.9rem;
-            min-width: 30px;
-        }
-
-        .skills-grid .skill .info .name {
+        .skill-row .name {
             font-weight: 600;
             color: #ffffff;
-            font-size: 0.95rem;
+            font-size: 16px;
         }
 
-        .skills-grid .skill .info .desc {
-            font-size: 0.84rem;
-            color: #8aaccc;
-            line-height: 1.5;
+        .skill-row .name::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin-right: 10px;
+            transform: translateY(-1px);
         }
 
-        /* ===== 05 / 06 时间线 ===== */
+        .skill-row .desc {
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        /* ===== 05 工作经历 / 06 项目经历（时间线） ===== */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+        }
+
         .tl-item {
-            padding: 18px 0 22px;
-            border-bottom: 1px solid #1a283c;
+            padding: 20px 0 24px;
+            border-bottom: 1px solid var(--line);
         }
 
         .tl-item:last-child {
             border-bottom: none;
         }
 
-        .tl-item .tl-head {
+        .tl-top {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 2px;
+            gap: 8px;
+            margin-bottom: 6px;
         }
 
-        .tl-item .tl-head .tl-title {
-            font-size: 1.08rem;
-            font-weight: 600;
+        .tl-role,
+        .tl-title {
+            font-weight: 700;
+            font-size: 18px;
             color: #ffffff;
         }
 
-        .tl-item .tl-head .tl-org {
-            color: #6c9eff;
-            font-weight: 400;
+        .tl-co,
+        .tl-org {
+            font-size: 14px;
+            color: var(--muted);
         }
 
-        .tl-item .tl-head .tl-date {
-            font-size: 0.78rem;
-            color: #6a8aaa;
-            background: #1a2a40;
-            padding: 0 14px;
-            border-radius: 30px;
-            border: 1px solid #2a4060;
+        .tl-date {
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 3px 12px;
+            border-radius: 999px;
             white-space: nowrap;
         }
 
-        .tl-item .tl-tech {
+        .tl-tech {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
-            margin: 6px 0 10px;
+            gap: 8px;
+            margin: 10px 0 4px;
         }
 
-        .tl-item .tl-tech span {
-            background: #1a2a40;
-            color: #8eb3d6;
-            font-size: 0.7rem;
-            padding: 2px 12px;
-            border-radius: 12px;
-            border: 1px solid #2a4060;
-        }
-
-        .tl-item .tl-body {
-            font-size: 0.92rem;
-            color: #b0cce5;
-        }
-
-        .tl-item .tl-body ul {
+        .tl-item ul {
             list-style: none;
-            padding-left: 0;
-            margin-top: 4px;
+            margin: 12px 0 0;
+            padding: 0;
         }
 
-        .tl-item .tl-body ul li {
+        .tl-item ul li {
             position: relative;
-            padding-left: 20px;
-            margin-bottom: 2px;
+            padding-left: 18px;
+            margin: 7px 0;
+            font-size: 14px;
+            color: var(--ink-2);
         }
 
-        .tl-item .tl-body ul li::before {
-            content: "▹";
+        .tl-item ul li::before {
+            content: "—";
             position: absolute;
             left: 0;
-            color: #6c9eff;
+            color: var(--accent);
+            font-family: var(--mono);
+        }
+
+        .tl-item ul li strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* ===== 项目：折叠卡片 ===== */
+        .proj {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .proj-card {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .proj-head {
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            padding: 18px 22px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            color: var(--ink);
+            transition: background .3s;
+        }
+
+        .proj-head:hover {
+            background: var(--accent-soft);
+        }
+
+        .proj-head .no {
+            font-family: var(--mono);
+            font-weight: 600;
+            font-size: 22px;
+            color: var(--accent);
+            width: 34px;
+            flex-shrink: 0;
+        }
+
+        .proj-head .t h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0;
+        }
+
+        .proj-head .t p {
+            margin: 4px 0 0;
+            font-size: 13.5px;
+            color: var(--muted);
+        }
+
+        .proj-head .chev {
+            font-family: var(--mono);
+            color: var(--muted);
+            font-size: 16px;
+            margin-left: auto;
+            flex-shrink: 0;
+            transition: transform .3s;
+        }
+
+        .proj-card.open .chev {
+            transform: rotate(180deg);
+        }
+
+        .proj-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .45s ease;
+            padding: 0 22px;
+        }
+
+        .proj-card.open .proj-body {
+            max-height: 2200px;
+            padding: 0 22px 22px;
+        }
+
+        .proj-body ul {
+            list-style: none;
+            margin: 0 0 14px;
+            padding: 0;
+        }
+
+        .proj-body ul li {
+            position: relative;
+            padding-left: 18px;
+            margin: 6px 0;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .proj-body ul li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
         }
 
         /* ===== 代码块 ===== */
         .code-block {
             background: #0a1522;
-            border: 1px solid #1e3048;
+            border: 1px solid var(--line);
             border-radius: 10px;
             padding: 14px 18px;
             margin: 10px 0 6px;
-            font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
+            font-family: var(--mono);
             font-size: 0.8rem;
             color: #b8d0e8;
             overflow-x: auto;
@@ -561,20 +771,66 @@
             word-break: break-all;
         }
 
-        .code-block .kw {
-            color: #c792ea;
+        .code-block .kw { color: #c792ea; }
+        .code-block .fn { color: #82aaff; }
+        .code-block .str { color: #c3e88d; }
+        .code-block .num { color: #f78c6c; }
+        .code-block .cmt { color: #546e7a; }
+
+        /* ===== 页脚 ===== */
+        .footer {
+            text-align: center;
+            padding: 44px 24px 36px;
+            background: #070f1c;
+            color: var(--muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--line);
         }
-        .code-block .fn {
-            color: #82aaff;
+
+        .footer .foot-brand {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: #ffffff;
+            letter-spacing: 2px;
         }
-        .code-block .str {
-            color: #c3e88d;
+
+        .footer .foot-brand span {
+            color: var(--accent);
         }
-        .code-block .num {
-            color: #f78c6c;
+
+        .footer .foot-links {
+            margin: 14px 0 4px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 22px;
+            font-size: 14px;
         }
-        .code-block .cmt {
-            color: #546e7a;
+
+        .footer .foot-links a {
+            color: var(--ink-2);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer .foot-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer .foot-links .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .footer .foot-note {
+            margin-top: 16px;
+            font-family: var(--mono);
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: #4a6a8a;
         }
 
         /* ===== Lightbox ===== */
@@ -613,7 +869,7 @@
             top: 24px;
             right: 32px;
             font-size: 2.4rem;
-            color: #8eb3d6;
+            color: var(--ink-2);
             cursor: pointer;
             transition: color 0.25s;
             background: none;
@@ -624,21 +880,66 @@
             color: #ffffff;
         }
 
-        /* ===== 页脚 ===== */
-        .footer {
-            text-align: center;
-            padding: 36px 24px 28px;
-            background: #070f1c;
-            color: #4a6a8a;
-            font-size: 0.82rem;
-            border-top: 1px solid #1a283c;
+        /* ===== 动效 ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(26px);
+            transition: opacity .7s ease, transform .7s ease;
         }
 
-        .footer i {
-            color: #3a5a7a;
+        .reveal.in {
+            opacity: 1;
+            transform: none;
+        }
+
+        .hero .stagger {
+            opacity: 0;
+            transform: translateY(26px);
+            animation: rise .8s ease forwards;
+        }
+
+        .hero .stagger:nth-child(1) { animation-delay: .05s; }
+        .hero .stagger:nth-child(2) { animation-delay: .14s; }
+        .hero .stagger:nth-child(3) { animation-delay: .23s; }
+        .hero .stagger:nth-child(4) { animation-delay: .32s; }
+        .hero .stagger:nth-child(5) { animation-delay: .41s; }
+
+        @keyframes rise {
+            to { opacity: 1; transform: none; }
         }
 
         /* ===== 响应式 ===== */
+        @media (max-width: 840px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: left;
+                gap: 28px;
+            }
+            .hero-visual {
+                order: -1;
+            }
+            .dossier-grid {
+                grid-template-columns: 1fr;
+            }
+            .d-item:nth-last-child(-n+2) {
+                border-bottom: 1px solid var(--line);
+            }
+            .d-item:last-child {
+                border-bottom: none;
+            }
+            .skill-row {
+                grid-template-columns: 34px 1fr;
+                grid-template-areas: "i n" ". d";
+                gap: 0 12px;
+            }
+            .skill-row .idx { grid-area: i; }
+            .skill-row .name { grid-area: n; }
+            .skill-row .desc { grid-area: d; padding-top: 4px; }
+            .showcase {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 0 12px;
@@ -648,53 +949,6 @@
                 padding: 0 12px;
                 height: 58px;
             }
-
-            .hero-top {
-                gap: 18px;
-            }
-            .hero-avatar {
-                width: 220px;
-                height: 220px;
-                font-size: 2rem;
-            }
-            .hero-name-group h1 {
-                font-size: 2.2rem;
-                letter-spacing: 3px;
-            }
-            .hero-name-group .subtitle {
-                font-size: 1.05rem;
-            }
-
-            .section-title {
-                font-size: 1.5rem;
-            }
-
-            .showcase-item {
-                flex-direction: column;
-                padding: 16px;
-            }
-            .showcase-thumb {
-                width: 100%;
-                height: 180px;
-            }
-
-            .profile-table {
-                grid-template-columns: 1fr 1fr;
-                padding: 14px 16px;
-            }
-            .profile-table .row .label {
-                min-width: 44px;
-            }
-
-            .tl-item .tl-head {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 2px;
-            }
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-
             .nav-menu {
                 position: fixed;
                 top: 58px;
@@ -705,7 +959,7 @@
                 flex-direction: column;
                 padding: 16px 24px 24px;
                 gap: 4px;
-                border-bottom: 1px solid #1e2d42;
+                border-bottom: 1px solid var(--line);
                 display: none;
                 box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
             }
@@ -722,28 +976,28 @@
             .nav-toggle {
                 display: block;
             }
+            .sec-head {
+                gap: 14px;
+            }
         }
 
         @media (max-width: 480px) {
-            .profile-table {
-                grid-template-columns: 1fr;
+            .hero h1 {
+                font-size: 1.9rem;
             }
-            .hero-avatar {
-                width: 60px;
-                height: 60px;
-                font-size: 1.6rem;
+            .avatar img {
+                width: 160px;
+                height: 160px;
             }
-            .hero-name-group h1 {
-                font-size: 1.8rem;
+            .avatar .avatar-fallback {
+                width: 160px;
+                height: 160px;
             }
             section {
-                padding: 36px 0 28px;
+                padding: 40px 0 32px;
             }
-            .about-box {
-                padding: 14px 16px;
-            }
-            .showcase-thumb {
-                height: 140px;
+            .dossier {
+                padding: 22px 20px;
             }
             .lightbox {
                 padding: 16px;
@@ -758,7 +1012,7 @@
 </head>
 <body>
 
-<!-- ===== 固定顶部导航栏 ===== -->
+<!-- ===== 顶部导航 ===== -->
 <nav class="navbar" id="navbar">
     <div class="nav-container">
         <a href="#" class="nav-logo">GUO·ZHEN<span>·CHENG</span></a>
@@ -778,97 +1032,98 @@
 
 <!-- ===== HERO ===== -->
 <header class="hero" id="home">
-    <div class="hero-top">
-        <div class="hero-avatar" id="avatarContainer">
-            <!-- 头像图片：将你的头像图片放到 images/avatar.jpg，或修改 src 路径 -->
+    <div class="hero-text">
+        <div class="hero-label stagger">Personal Portfolio</div>
+        <h1 class="stagger">郭振城<span class="en">Java / Full-Stack · AI Agent Engineer</span></h1>
+        <p class="titleline stagger">Java &amp; 全栈开发 · 企业级 AI 智能体 / 大模型应用工程师</p>
+        <p class="bio stagger">
+            7 年+ 后端开发经验，近两年深耕 AI 智能体平台与全栈架构。
+            专注 Agent 调度体系、MCP 工具体系、RAG 知识库、上下文工程等大模型应用落地。
+        </p>
+        <div class="cta stagger">
+            <a class="btn btn-fill" href="#projects">查看项目</a>
+            <a class="btn btn-ghost" href="mailto:2321523917@qq.com">联系方式</a>
+        </div>
+    </div>
+    <div class="hero-visual stagger">
+        <figure class="avatar">
             <img src="images/avatar.png" alt="郭振城" id="avatarImg" onerror="this.style.display='none';document.getElementById('avatarFallback').style.display='flex';" />
-            <div id="avatarFallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-size:2.8rem;font-weight:700;color:#6c9eff;background:linear-gradient(135deg,#1a2a40,#0d1628);">郭</div>
-        </div>
-        <div class="hero-name-group">
-            <h1>郭振城</h1>
-            <div class="subtitle">Java &amp; 全栈开发 · AI Agent 应用</div>
-            <div class="badge">企业级 AI 智能体 · 大模型应用 · 微服务架构</div>
-        </div>
-    </div>
-    <div class="desc">
-        7 年+ 后端开发经验，近两年深耕 AI 智能体平台与全栈架构。<br />
-        专注 Agent 调度体系、MCP 工具体系、RAG 知识库、上下文工程等大模型应用落地。
-    </div>
-    <div class="scroll">
-        SCROLL <i class="fas fa-chevron-down"></i>
+            <div class="avatar-fallback" id="avatarFallback" style="display:none;">郭</div>
+            <figcaption>JAVA · AI · 郭振城</figcaption>
+        </figure>
     </div>
 </header>
 
-<!-- ===== 01 作品展示（列表布局） ===== -->
-<section id="showcase">
-    <div class="container">
-        <div class="section-title">
-            <span class="num">01</span> 作品展示 <span class="en">Showcase</span>
-        </div>
-        <div class="showcase-list">
+<p class="scroll-hint">SCROLL ↓</p>
 
+<!-- ===== 01 作品展示 ===== -->
+<section class="section" id="showcase">
+    <div class="container">
+        <div class="sec-head reveal">
+            <span class="no">01</span>
+            <h2>作品展示</h2>
+            <span class="en">Showcase</span>
+            <div class="rule"></div>
+        </div>
+
+        <div class="showcase">
             <!-- 作品1：AIOS -->
-            <div class="showcase-item">
-                <div class="showcase-thumb" onclick="openLightbox('images/landing-page.jpeg')">
-                    <img src="images/landing-page.jpeg" alt="AIOS 平台截图" />
+            <div class="show reveal">
+                <div class="media">
+                    <span class="stage">平台</span>
+                    <img src="images/landing-page.jpeg" alt="AIOS 平台截图" onclick="openLightbox('images/landing-page.jpeg')" />
                 </div>
-                <div class="showcase-body">
-                    <div class="item-title">AIOS 企业级 AI Agent 平台</div>
-                    <div class="item-tags">
-                        <span>Python / FastAPI</span>
-                        <span>React 18</span>
-                        <span>Docker</span>
-                    </div>
-                    <div class="item-desc">
-                        多租户 AI Agent 操作系统，基于 ReAct 循环，集成 MCP 协议、多模态、审批流、记忆系统。独立完成全栈开发与生产环境部署。
+                <div class="body">
+                    <h3>AIOS 企业级 AI Agent 平台</h3>
+                    <p>多租户 AI Agent 操作系统，基于 ReAct 循环，集成 MCP 协议、多模态、审批流、记忆系统。独立完成全栈开发与生产环境部署。</p>
+                    <div class="tag-row">
+                        <span class="tag">Python / FastAPI</span>
+                        <span class="tag">React 18</span>
+                        <span class="tag">Docker</span>
                     </div>
                     <div class="item-links">
-                        <span><i class="fas fa-video"></i> 视频</span>
                         <a href="https://xiaoyin.dbcpaas.com:8097/workspace/projects/h5_bf3141/index.html" target="_blank"><i class="fas fa-link"></i> 案例分享</a>
                     </div>
                 </div>
             </div>
 
             <!-- 作品2：SmartLink -->
-            <div class="showcase-item">
-                <div class="showcase-thumb" onclick="openLightbox('images/smartlink-placeholder.png')">
-                    <img src="images/smartlink-placeholder.png" alt="SmartLink 平台截图" />
+            <div class="show reveal">
+                <div class="media">
+                    <span class="stage">平台</span>
+                    <img src="images/smartlink-placeholder.png" alt="SmartLink 平台截图" onclick="openLightbox('images/smartlink-placeholder.png')" />
                 </div>
-                <div class="showcase-body">
-                    <div class="item-title">SmartLink 智能营销平台</div>
-                    <div class="item-tags">
-                        <span>Spring Boot</span>
-                        <span>Spring Cloud</span>
-                        <span>React</span>
-                    </div>
-                    <div class="item-desc">
-                        融合 5G 消息、短信、IVR 语音、小红书等渠道，提供从客户分群、营销任务到数据报表的完整闭环，支持多租户 SaaS 架构。
+                <div class="body">
+                    <h3>SmartLink 智能营销平台</h3>
+                    <p>融合 5G 消息、短信、IVR 语音、小红书等渠道，提供从客户分群、营销任务到数据报表的完整闭环，支持多租户 SaaS 架构。</p>
+                    <div class="tag-row">
+                        <span class="tag">Spring Boot</span>
+                        <span class="tag">Spring Cloud</span>
+                        <span class="tag">React</span>
                     </div>
                     <div class="item-links">
-                        <span><i class="fas fa-video"></i> 视频</span>
                         <a href="https://smartlink.baiwix.com:6001/admin/ai-dashboard" target="_blank"><i class="fas fa-link"></i> 案例分享</a>
                     </div>
                 </div>
             </div>
 
             <!-- 作品3：数字人 -->
-            <div class="showcase-item">
-                <div class="showcase-thumb" onclick="openLightbox('images/digital-human-placeholder.jpg')">
+            <div class="show reveal">
+                <div class="media">
+                    <span class="stage">数字人</span>
                     <div class="placeholder" id="placeholder-digital">
                         <i class="fas fa-user-robot"></i>
                         <span>数字人</span>
                     </div>
-                    <img src="images/digital-human-placeholder.jpg" alt="数字人系统截图" style="display:none;" onerror="this.style.display='none';document.getElementById('placeholder-digital').style.display='flex';" />
+                    <img src="images/digital-human-placeholder.jpg" alt="数字人系统截图" onerror="this.style.display='none';document.getElementById('placeholder-digital').style.display='flex';" onclick="openLightbox('images/digital-human-placeholder.jpg')" />
                 </div>
-                <div class="showcase-body">
-                    <div class="item-title">新加坡互动数字人（中国银行）</div>
-                    <div class="item-tags">
-                        <span>Spring Boot</span>
-                        <span>Zego SDK</span>
-                        <span>Azure Speech</span>
-                    </div>
-                    <div class="item-desc">
-                        为新加坡中行营业厅打造实时互动数字人，集成 Zego 数字人 SDK、Azure 语音识别、Dify AI，支持中英双语及一体机适配。
+                <div class="body">
+                    <h3>新加坡互动数字人（中国银行）</h3>
+                    <p>为新加坡中行营业厅打造实时互动数字人，集成 Zego 数字人 SDK、Azure 语音识别、Dify AI，支持中英双语及一体机适配。</p>
+                    <div class="tag-row">
+                        <span class="tag">Spring Boot</span>
+                        <span class="tag">Zego SDK</span>
+                        <span class="tag">Azure Speech</span>
                     </div>
                     <div class="item-links">
                         <span><i class="fas fa-video"></i> 视频</span>
@@ -878,23 +1133,22 @@
             </div>
 
             <!-- 作品4：物联网 -->
-            <div class="showcase-item">
-                <div class="showcase-thumb" onclick="openLightbox('images/iot-placeholder.jpg')">
+            <div class="show reveal">
+                <div class="media">
+                    <span class="stage">物联网</span>
                     <div class="placeholder" id="placeholder-iot">
                         <i class="fas fa-cloud-upload-alt"></i>
                         <span>物联网</span>
                     </div>
-                    <img src="images/iot-placeholder.jpg" alt="物联网平台截图" style="display:none;" onerror="this.style.display='none';document.getElementById('placeholder-iot').style.display='flex';" />
+                    <img src="images/iot-placeholder.jpg" alt="物联网平台截图" onerror="this.style.display='none';document.getElementById('placeholder-iot').style.display='flex';" onclick="openLightbox('images/iot-placeholder.jpg')" />
                 </div>
-                <div class="showcase-body">
-                    <div class="item-title">物联网管理平台</div>
-                    <div class="item-tags">
-                        <span>Dubbo</span>
-                        <span>Zookeeper</span>
-                        <span>Spring MVC</span>
-                    </div>
-                    <div class="item-desc">
-                        集成三大运营商物联网卡业务，实现客户管理、账单处理、卡生命周期管理，承担半年研发经理工作。
+                <div class="body">
+                    <h3>物联网管理平台</h3>
+                    <p>集成三大运营商物联网卡业务，实现客户管理、账单处理、卡生命周期管理，承担半年研发经理工作。</p>
+                    <div class="tag-row">
+                        <span class="tag">Dubbo</span>
+                        <span class="tag">Zookeeper</span>
+                        <span class="tag">Spring MVC</span>
                     </div>
                     <div class="item-links">
                         <span><i class="fas fa-video"></i> 视频</span>
@@ -902,156 +1156,105 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
 
 <!-- ===== 02 个人信息 ===== -->
-<section id="profile">
+<section class="section" id="profile">
     <div class="container">
-        <div class="section-title">
-            <span class="num">02</span> 个人信息 <span class="en">Profile</span>
+        <div class="sec-head reveal">
+            <span class="no">02</span>
+            <h2>个人信息</h2>
+            <span class="en">Profile</span>
+            <div class="rule"></div>
         </div>
-        <div class="profile-table">
-            <div class="row"><span class="label">姓名</span><span class="value">郭振城</span></div>
-            <div class="row"><span class="label">性别</span><span class="value">男</span></div>
-            <div class="row"><span class="label">出生年月</span><span class="value">1993.11</span></div>
-            <div class="row"><span class="label">学历</span><span class="value">本科</span></div>
-            <div class="row"><span class="label">专业</span><span class="value">软件工程</span></div>
-            <div class="row"><span class="label">现居地</span><span class="value">福建 · 厦门</span></div>
-            <div class="row"><span class="label">邮箱</span><span class="value">2321523917@qq.com</span></div>
-            <div class="row"><span class="label">电话</span><span class="value">130 2397 3687</span></div>
-            <div class="row"><span class="label">英语</span><span class="value">CET-4</span></div>
-            <div class="row"><span class="label">经验</span><span class="value">7 年+</span></div>
+
+        <div class="dossier reveal">
+            <div class="dossier-grid">
+                <div class="d-item"><span class="k">姓名</span><span class="v">郭振城</span></div>
+                <div class="d-item"><span class="k">性别</span><span class="v">男</span></div>
+                <div class="d-item"><span class="k">出生年月</span><span class="v">1993.11</span></div>
+                <div class="d-item"><span class="k">学历</span><span class="v">本科</span></div>
+                <div class="d-item"><span class="k">专业</span><span class="v">软件工程</span></div>
+                <div class="d-item"><span class="k">现居地</span><span class="v">福建 · 厦门</span></div>
+                <div class="d-item"><span class="k">邮箱</span><span class="v">2321523917@qq.com</span></div>
+                <div class="d-item"><span class="k">电话</span><span class="v">130 2397 3687</span></div>
+                <div class="d-item"><span class="k">英语</span><span class="v">CET-4</span></div>
+                <div class="d-item"><span class="k">经验</span><span class="v">7 年+</span></div>
+            </div>
         </div>
     </div>
 </section>
 
 <!-- ===== 03 个人简介 ===== -->
-<section id="about">
+<section class="section" id="about">
     <div class="container">
-        <div class="section-title">
-            <span class="num">03</span> 个人简介 <span class="en">About</span>
+        <div class="sec-head reveal">
+            <span class="no">03</span>
+            <h2>个人简介</h2>
+            <span class="en">About</span>
+            <div class="rule"></div>
         </div>
-        <div class="about-box">
-            7 年+ Java 后端开发经验，近两年深耕 AI 智能体平台与全栈架构。具备 Agent 调度体系、MCP 工具体系、RAG 知识库、上下文工程等大模型应用落地经验。能够独立完成从后端架构设计、模型接入、工具体系建设到前端交互展示的完整 AI 应用开发流程。熟悉微服务、高并发、容器化部署，具备从 0 到 1 搭建企业级系统的能力。善于性能调优、故障排查，乐于技术分享与团队协作。多次获得公司绩效"优秀"评级，具备 T4 职级所需的专业知识、运维能力、开发能力、业务能力及架构能力。
-        </div>
+        <p class="intro reveal">
+            7 年+ Java 后端开发经验，近两年深耕 AI 智能体平台与全栈架构。具备 <b>Agent 调度体系</b>、<b>MCP 工具体系</b>、<b>RAG 知识库</b>、<b>上下文工程</b> 等大模型应用落地经验。能够独立完成从后端架构设计、模型接入、工具体系建设到前端交互展示的完整 AI 应用开发流程。熟悉 <b>微服务</b>、<b>高并发</b>、<b>容器化部署</b>，具备从 0 到 1 搭建企业级系统的能力。善于性能调优、故障排查，乐于技术分享与团队协作。多次获得公司绩效"优秀"评级，具备 T4 职级所需的专业知识、运维能力、开发能力、业务能力及架构能力。
+        </p>
     </div>
 </section>
 
 <!-- ===== 04 个人能力 ===== -->
-<section id="skills">
+<section class="section" id="skills">
     <div class="container">
-        <div class="section-title">
-            <span class="num">04</span> 个人能力 <span class="en">Skills</span>
+        <div class="sec-head reveal">
+            <span class="no">04</span>
+            <h2>个人能力</h2>
+            <span class="en">Skills</span>
+            <div class="rule"></div>
         </div>
-        <div class="skills-grid">
 
-            <div class="skill">
-                <span class="idx">01</span>
-                <div class="info">
-                    <div class="name">Java / Spring 生态</div>
-                    <div class="desc">Spring Boot、Spring Cloud、MyBatis、Dubbo、微服务架构设计、高并发处理、JVM 调优</div>
-                </div>
-            </div>
-
-            <div class="skill">
-                <span class="idx">02</span>
-                <div class="info">
-                    <div class="name">AI 应用开发</div>
-                    <div class="desc">Agent 架构（ReAct）、MCP 协议、RAG 知识库、Prompt 工程、多模型接入调度（OpenAI/国内大模型）</div>
-                </div>
-            </div>
-
-            <div class="skill">
-                <span class="idx">03</span>
-                <div class="info">
-                    <div class="name">前端开发</div>
-                    <div class="desc">React 18、TypeScript、Ant Design、响应式设计、流式交互（SSE/WebSocket）</div>
-                </div>
-            </div>
-
-            <div class="skill">
-                <span class="idx">04</span>
-                <div class="info">
-                    <div class="name">数据库与中间件</div>
-                    <div class="desc">MySQL、Redis、Qdrant 向量数据库、性能调优、索引设计、缓存策略、批量处理优化</div>
-                </div>
-            </div>
-
-            <div class="skill">
-                <span class="idx">05</span>
-                <div class="info">
-                    <div class="name">运维与部署</div>
-                    <div class="desc">Docker、Docker Compose、Nginx、Jenkins、CI/CD、华为云生产环境部署、故障排查（Arthas、jstack、top）</div>
-                </div>
-            </div>
-
-            <div class="skill">
-                <span class="idx">06</span>
-                <div class="info">
-                    <div class="name">多媒体 AI</div>
-                    <div class="desc">ASR（自研/微软）、TTS、数字人（Zego）、语音克隆、实时语音交互、音频转码（opus→mp3）</div>
-                </div>
-            </div>
-
-            <div class="skill">
-                <span class="idx">07</span>
-                <div class="info">
-                    <div class="name">Python 全栈</div>
-                    <div class="desc">FastAPI、Celery、SQLAlchemy、异步编程、AI 服务编排、多进程架构（Gunicorn+Uvicorn）</div>
-                </div>
-            </div>
-
-            <div class="skill">
-                <span class="idx">08</span>
-                <div class="info">
-                    <div class="name">设计模式与架构</div>
-                    <div class="desc">单例、观察者、工厂等设计模式；分布式系统设计、多租户 SaaS 架构、领域驱动设计</div>
-                </div>
-            </div>
-
-            <div class="skill">
-                <span class="idx">09</span>
-                <div class="info">
-                    <div class="name">业务能力</div>
-                    <div class="desc">物联网账单流程、语音通知对接、freeswitch 集成、国际短信/语音业务、营销平台全流程</div>
-                </div>
-            </div>
-
-            <div class="skill">
-                <span class="idx">10</span>
-                <div class="info">
-                    <div class="name">团队协作与敬业</div>
-                    <div class="desc">主动沟通、任务协调、代码审查、文档沉淀（部署文档/经验总结）、加班攻坚、带教新员工</div>
-                </div>
-            </div>
-
+        <div class="skill-list reveal">
+            <div class="skill-row"><span class="idx">01</span><span class="name">Java / Spring 生态</span><span class="desc">Spring Boot、Spring Cloud、MyBatis、Dubbo、微服务架构设计、高并发处理、JVM 调优</span></div>
+            <div class="skill-row"><span class="idx">02</span><span class="name">AI 应用开发</span><span class="desc">Agent 架构（ReAct）、MCP 协议、RAG 知识库、Prompt 工程、多模型接入调度（OpenAI/国内大模型）</span></div>
+            <div class="skill-row"><span class="idx">03</span><span class="name">前端开发</span><span class="desc">React 18、TypeScript、Ant Design、响应式设计、流式交互（SSE/WebSocket）</span></div>
+            <div class="skill-row"><span class="idx">04</span><span class="name">数据库与中间件</span><span class="desc">MySQL、Redis、Qdrant 向量数据库、性能调优、索引设计、缓存策略、批量处理优化</span></div>
+            <div class="skill-row"><span class="idx">05</span><span class="name">运维与部署</span><span class="desc">Docker、Docker Compose、Nginx、Jenkins、CI/CD、华为云生产环境部署、故障排查（Arthas、jstack、top）</span></div>
+            <div class="skill-row"><span class="idx">06</span><span class="name">多媒体 AI</span><span class="desc">ASR（自研/微软）、TTS、数字人（Zego）、语音克隆、实时语音交互、音频转码（opus→mp3）</span></div>
+            <div class="skill-row"><span class="idx">07</span><span class="name">Python 全栈</span><span class="desc">FastAPI、Celery、SQLAlchemy、异步编程、AI 服务编排、多进程架构（Gunicorn+Uvicorn）</span></div>
+            <div class="skill-row"><span class="idx">08</span><span class="name">设计模式与架构</span><span class="desc">单例、观察者、工厂等设计模式；分布式系统设计、多租户 SaaS 架构、领域驱动设计</span></div>
+            <div class="skill-row"><span class="idx">09</span><span class="name">业务能力</span><span class="desc">物联网账单流程、语音通知对接、freeswitch 集成、国际短信/语音业务、营销平台全流程</span></div>
+            <div class="skill-row"><span class="idx">10</span><span class="name">团队协作与敬业</span><span class="desc">主动沟通、任务协调、代码审查、文档沉淀（部署文档/经验总结）、加班攻坚、带教新员工</span></div>
         </div>
     </div>
 </section>
 
 <!-- ===== 05 工作经历 ===== -->
-<section id="experience">
+<section class="section" id="experience">
     <div class="container">
-        <div class="section-title">
-            <span class="num">05</span> 工作经历 <span class="en">Experience</span>
+        <div class="sec-head reveal">
+            <span class="no">05</span>
+            <h2>工作经历</h2>
+            <span class="en">Experience</span>
+            <div class="rule"></div>
         </div>
 
-        <div class="tl-item">
-            <div class="tl-head">
-                <div>
-                    <span class="tl-title">后端研发工程师</span>
-                    <span class="tl-org"> · 厦门集微科技 / AI与硬科技BU</span>
+        <div class="timeline reveal">
+            <div class="tl-item">
+                <div class="tl-top">
+                    <div>
+                        <span class="tl-role">后端研发工程师</span>
+                        <span class="tl-co"> · 厦门集微科技 / AI与硬科技BU</span>
+                    </div>
+                    <span class="tl-date">2017.07 — 至今</span>
                 </div>
-                <span class="tl-date">2017.07 – 至今</span>
-            </div>
-            <div class="tl-tech">
-                <span>Java</span><span>Spring Boot</span><span>Spring Cloud</span>
-                <span>Python</span><span>FastAPI</span><span>React</span><span>Docker</span>
-            </div>
-            <div class="tl-body">
+                <div class="tl-tech">
+                    <span class="tag">Java</span>
+                    <span class="tag">Spring Boot</span>
+                    <span class="tag">Spring Cloud</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">FastAPI</span>
+                    <span class="tag">React</span>
+                    <span class="tag">Docker</span>
+                </div>
                 <ul>
                     <li><strong>AIOS 平台（2025-至今）</strong>：主导企业级 AI Agent 平台全栈开发，基于 FastAPI + React + Docker，实现多租户、MCP 协议、记忆系统；独立完成落地页系统、多语言国际化、5+ 智能体开发；性能优化（内存降低 60%，并发提升 4 倍）；负责华为云生产环境搭建与运维。</li>
                     <li><strong>SmartLink 营销平台（2026-至今）</strong>：从零搭建 Spring Boot 多模块项目，设计多租户 SaaS 数据隔离；对接 5G 消息、短信、IVR、小红书等多渠道；基于 LLM Function Calling 实现 AI 问数、AI 雀报；完成前端工程及网格通 SSO 集成。</li>
@@ -1061,128 +1264,160 @@
                 </ul>
             </div>
         </div>
-
     </div>
 </section>
 
 <!-- ===== 06 项目经历 ===== -->
-<section id="projects">
+<section class="section" id="projects">
     <div class="container">
-        <div class="section-title">
-            <span class="num">06</span> 项目经历 <span class="en">Projects</span>
+        <div class="sec-head reveal">
+            <span class="no">06</span>
+            <h2>项目经历</h2>
+            <span class="en">Projects</span>
+            <div class="rule"></div>
         </div>
 
-        <!-- 项目1：AIOS -->
-        <div class="tl-item">
-            <div class="tl-head">
-                <div>
-                    <span class="tl-title">AIOS 企业级 AI Agent 平台</span>
-                    <span class="tl-org"> · 全栈开发 &amp; 运维</span>
+        <div class="proj reveal">
+
+            <!-- 项目1：AIOS -->
+            <div class="proj-card open">
+                <button class="proj-head" onclick="toggleProj(this)" aria-expanded="true">
+                    <span class="no">01</span>
+                    <span class="t">
+                        <h3>AIOS 企业级 AI Agent 平台</h3>
+                        <p>全栈开发 &amp; 运维 · 2025 — 2026</p>
+                    </span>
+                    <span class="chev">▾</span>
+                </button>
+                <div class="proj-body">
+                    <div class="tl-tech">
+                        <span class="tag">Python 3.11</span>
+                        <span class="tag">FastAPI</span>
+                        <span class="tag">React 18</span>
+                        <span class="tag">TypeScript</span>
+                        <span class="tag">Docker</span>
+                        <span class="tag">Qdrant</span>
+                        <span class="tag">Celery</span>
+                    </div>
+                    <ul>
+                        <li><strong>核心功能</strong>：独立设计"一键生成落地页"系统，解决 CORS 跨域、MySQL 虚拟列插入、短链标识符等技术难点；主导平台多语言国际化（新增印尼语、马来语、越南语、泰语）。</li>
+                        <li><strong>Agent 建设</strong>：开发"客多多""BI 演示""停车场运营分析"等 5+ 智能体，优化 MCP 协议 HTTP 传输适配；实现网格通 SSO 单点登录、AI 雀报 H5 页面、国内语音回执接口集成。</li>
+                        <li><strong>性能优化</strong>：排查并修复 Playwright Chromium 进程 OOM，限制浏览器实例数，内存占用降低 60%+；后端从单进程 Uvicorn 升级为 Gunicorn+Uvicorn（4 workers），并发能力提升 4 倍。</li>
+                        <li><strong>部署运维</strong>：独立完成华为云（8核32GB/500GB SSD/Debian 11）生产环境搭建，配置 Nginx、MySQL 8、Redis、Docker Compose；编写多阶段 Dockerfile（Python 3.11-slim + Node.js 20 + Playwright + spaCy），配置健康检查、资源限制、Volume 挂载；编写完整部署文档，管理 9 个 MCP 微服务。</li>
+                    </ul>
                 </div>
-                <span class="tl-date">2025 – 2026</span>
             </div>
-            <div class="tl-tech">
-                <span>Python 3.11</span><span>FastAPI</span><span>React 18</span>
-                <span>TypeScript</span><span>Docker</span><span>Qdrant</span><span>Celery</span>
-            </div>
-            <div class="tl-body">
-                <ul>
-                    <li><strong>核心功能</strong>：独立设计"一键生成落地页"系统，解决 CORS 跨域、MySQL 虚拟列插入、短链标识符等技术难点；主导平台多语言国际化（新增印尼语、马来语、越南语、泰语）。</li>
-                    <li><strong>Agent 建设</strong>：开发"客多多""BI 演示""停车场运营分析"等 5+ 智能体，优化 MCP 协议 HTTP 传输适配；实现网格通 SSO 单点登录、AI 雀报 H5 页面、国内语音回执接口集成。</li>
-                    <li><strong>性能优化</strong>：排查并修复 Playwright Chromium 进程 OOM，限制浏览器实例数，内存占用降低 60%+；后端从单进程 Uvicorn 升级为 Gunicorn+Uvicorn（4 workers），并发能力提升 4 倍。</li>
-                    <li><strong>部署运维</strong>：独立完成华为云（8核32GB/500GB SSD/Debian 11）生产环境搭建，配置 Nginx、MySQL 8、Redis、Docker Compose；编写多阶段 Dockerfile（Python 3.11-slim + Node.js 20 + Playwright + spaCy），配置健康检查、资源限制、Volume 挂载；编写完整部署文档，管理 9 个 MCP 微服务。</li>
-                </ul>
-            </div>
-        </div>
 
-        <!-- 项目2：SmartLink -->
-        <div class="tl-item">
-            <div class="tl-head">
-                <div>
-                    <span class="tl-title">SmartLink 智能营销平台</span>
-                    <span class="tl-org"> · 全栈开发</span>
+            <!-- 项目2：SmartLink -->
+            <div class="proj-card">
+                <button class="proj-head" onclick="toggleProj(this)" aria-expanded="false">
+                    <span class="no">02</span>
+                    <span class="t">
+                        <h3>SmartLink 智能营销平台</h3>
+                        <p>全栈开发 · 2026.02 — 至今</p>
+                    </span>
+                    <span class="chev">▾</span>
+                </button>
+                <div class="proj-body">
+                    <div class="tl-tech">
+                        <span class="tag">Spring Boot</span>
+                        <span class="tag">Spring Cloud</span>
+                        <span class="tag">MyBatis</span>
+                        <span class="tag">MySQL 8</span>
+                        <span class="tag">Redis</span>
+                        <span class="tag">React</span>
+                        <span class="tag">Jenkins</span>
+                    </div>
+                    <ul>
+                        <li>从零搭建 Spring Boot 多模块（smart-admin/smart-common/smart-framework/smart-system），设计 RESTful API 及统一返回格式。</li>
+                        <li>设计并实现多租户 SaaS 数据隔离方案，支持租户额度管理、套餐配置及每月自动重置机制；完成营销任务全流程（创建、编辑、优化提升、自动创建下一轮）。</li>
+                        <li>对接 5G 消息（RCS）平台（模板创建审核、素材管理、群发下发、状态报告回执、定时同步），支持回落普短；集成短信通道（多供应商可配置、移动 CMPP 扩展字段签名校验）；开发 IVR 语音外呼（批量下发、异步处理、多通道可配置）；开发小红书内容自动发送及 DashScope 文生图/视频生成。</li>
+                        <li>基于 LLM Function Calling 构建 AI 工具注册与调度框架，实现 AI 问数（自然语言查询营销数据）和 AI 雀报（生成营销分析报告）；实现营销飞轮模式，基于 ROI 自动生成优化建议。</li>
+                        <li>基于 React + TypeScript + Ant Design 搭建前端，完成融合通信、营销管理、客户分群、数据报表等模块；实现 AI Copilot 对话面板（流式输出、Agent 步骤可视化）；完成网格通 SSO 单点登录及移动端适配。</li>
+                        <li>负责华为云服务器环境（CentOS 7.9 + 8核32GB + 500GB SSD）搭建，独立完成 Nginx、MySQL 8、JDK 17、Redis 等中间件配置；编写 Dockerfile 实现前后端容器化；对接 Jenkins 自动化 CI/CD 流水线。</li>
+                    </ul>
                 </div>
-                <span class="tl-date">2026.02 – 至今</span>
             </div>
-            <div class="tl-tech">
-                <span>Spring Boot</span><span>Spring Cloud</span><span>MyBatis</span>
-                <span>MySQL 8</span><span>Redis</span><span>React</span><span>Jenkins</span>
-            </div>
-            <div class="tl-body">
-                <ul>
-                    <li>从零搭建 Spring Boot 多模块（smart-admin/smart-common/smart-framework/smart-system），设计 RESTful API 及统一返回格式。</li>
-                    <li>设计并实现多租户 SaaS 数据隔离方案，支持租户额度管理、套餐配置及每月自动重置机制；完成营销任务全流程（创建、编辑、优化提升、自动创建下一轮）。</li>
-                    <li>对接 5G 消息（RCS）平台（模板创建审核、素材管理、群发下发、状态报告回执、定时同步），支持回落普短；集成短信通道（多供应商可配置、移动 CMPP 扩展字段签名校验）；开发 IVR 语音外呼（批量下发、异步处理、多通道可配置）；开发小红书内容自动发送及 DashScope 文生图/视频生成。</li>
-                    <li>基于 LLM Function Calling 构建 AI 工具注册与调度框架，实现 AI 问数（自然语言查询营销数据）和 AI 雀报（生成营销分析报告）；实现营销飞轮模式，基于 ROI 自动生成优化建议。</li>
-                    <li>基于 React + TypeScript + Ant Design 搭建前端，完成融合通信、营销管理、客户分群、数据报表等模块；实现 AI Copilot 对话面板（流式输出、Agent 步骤可视化）；完成网格通 SSO 单点登录及移动端适配。</li>
-                    <li>负责华为云服务器环境（CentOS 7.9 + 8核32GB + 500GB SSD）搭建，独立完成 Nginx、MySQL 8、JDK 17、Redis 等中间件配置；编写 Dockerfile 实现前后端容器化；对接 Jenkins 自动化 CI/CD 流水线。</li>
-                </ul>
-            </div>
-        </div>
 
-        <!-- 项目3：新加坡数字人 -->
-        <div class="tl-item">
-            <div class="tl-head">
-                <div>
-                    <span class="tl-title">新加坡互动数字人（中国银行）</span>
-                    <span class="tl-org"> · 后端开发 &amp; 部署</span>
+            <!-- 项目3：新加坡数字人 -->
+            <div class="proj-card">
+                <button class="proj-head" onclick="toggleProj(this)" aria-expanded="false">
+                    <span class="no">03</span>
+                    <span class="t">
+                        <h3>新加坡互动数字人（中国银行）</h3>
+                        <p>后端开发 &amp; 部署 · 2024.08 — 2024.11</p>
+                    </span>
+                    <span class="chev">▾</span>
+                </button>
+                <div class="proj-body">
+                    <div class="tl-tech">
+                        <span class="tag">Spring Boot 2.7</span>
+                        <span class="tag">MyBatis</span>
+                        <span class="tag">Thymeleaf</span>
+                        <span class="tag">MySQL 8</span>
+                        <span class="tag">Zego SDK</span>
+                        <span class="tag">Azure Speech</span>
+                        <span class="tag">Dify AI</span>
+                    </div>
+                    <ul>
+                        <li>独立完成项目技术选型、架构设计、数据库设计（4 张核心业务表），搭建 Spring Boot + MyBatis + Thymeleaf 三层架构，实现统一响应、加解密、全局异常处理。</li>
+                        <li>对接即构（Zego）AIGC API，实现数字人模特查询、形象详情、音色管理、视频流创建/驱动/中断/停止；实现 Zego Token04 鉴权，支持 WebRTC 拉流播放。</li>
+                        <li>集成 Dify AI 对话平台（Chat API + Workflow API），实现流式（SSE）和非流式 AI 对话，将 AI 回答实时驱动数字人播报；支持关键词匹配和固定问答。</li>
+                        <li>集成 Azure Cognitive Services 语音识别和自建 ASR，实现浏览器录音 → 音频上传 → 语音转文本 → AI 对话 → 数字人播报的完整语音交互链路。</li>
+                        <li>优化一体机多分辨率适配（SD 480×360、HD+ 1920×1080、2K 2560×1440）；对接人脸识别服务，实现人脸录入、识别成功自动触发数字人主动问候。</li>
+                        <li>使用 jQuery + Bootstrap + Thymeleaf 实现响应式数字人交互页面，集成 Zego 播放器、RecordRTC 录音、Vudio 音频可视化，支持中英文国际化。</li>
+                        <li>负责华为云生产环境部署（8核32GB、CentOS 7.9），安装配置 Nginx、MySQL 8.0、JDK 17、Redis；编写 Nginx 配置实现反向代理和静态资源分离；对接 Jenkins 自动化部署；配置生产环境参数，使用 Keystore 加密敏感配置。</li>
+                    </ul>
                 </div>
-                <span class="tl-date">2024.08 – 2024.11</span>
             </div>
-            <div class="tl-tech">
-                <span>Spring Boot 2.7</span><span>MyBatis</span><span>Thymeleaf</span>
-                <span>MySQL 8</span><span>Zego SDK</span><span>Azure Speech</span><span>Dify AI</span>
-            </div>
-            <div class="tl-body">
-                <ul>
-                    <li>独立完成项目技术选型、架构设计、数据库设计（4 张核心业务表），搭建 Spring Boot + MyBatis + Thymeleaf 三层架构，实现统一响应、加解密、全局异常处理。</li>
-                    <li>对接即构（Zego）AIGC API，实现数字人模特查询、形象详情、音色管理、视频流创建/驱动/中断/停止；实现 Zego Token04 鉴权，支持 WebRTC 拉流播放。</li>
-                    <li>集成 Dify AI 对话平台（Chat API + Workflow API），实现流式（SSE）和非流式 AI 对话，将 AI 回答实时驱动数字人播报；支持关键词匹配和固定问答。</li>
-                    <li>集成 Azure Cognitive Services 语音识别和自建 ASR，实现浏览器录音 → 音频上传 → 语音转文本 → AI 对话 → 数字人播报的完整语音交互链路。</li>
-                    <li>优化一体机多分辨率适配（SD 480×360、HD+ 1920×1080、2K 2560×1440）；对接人脸识别服务，实现人脸录入、识别成功自动触发数字人主动问候。</li>
-                    <li>使用 jQuery + Bootstrap + Thymeleaf 实现响应式数字人交互页面，集成 Zego 播放器、RecordRTC 录音、Vudio 音频可视化，支持中英文国际化。</li>
-                    <li>负责华为云生产环境部署（8核32GB、CentOS 7.9），安装配置 Nginx、MySQL 8.0、JDK 17、Redis；编写 Nginx 配置实现反向代理和静态资源分离；对接 Jenkins 自动化部署；配置生产环境参数，使用 Keystore 加密敏感配置。</li>
-                </ul>
-            </div>
-        </div>
 
-        <!-- 项目4：物联网管理平台 + 短信平台 -->
-        <div class="tl-item">
-            <div class="tl-head">
-                <div>
-                    <span class="tl-title">物联网管理平台 &amp; 短信平台</span>
-                    <span class="tl-org"> · 核心开发</span>
+            <!-- 项目4：物联网 + 短信 -->
+            <div class="proj-card">
+                <button class="proj-head" onclick="toggleProj(this)" aria-expanded="false">
+                    <span class="no">04</span>
+                    <span class="t">
+                        <h3>物联网管理平台 &amp; 短信平台</h3>
+                        <p>核心开发 · 2017.08 — 2021.02</p>
+                    </span>
+                    <span class="chev">▾</span>
+                </button>
+                <div class="proj-body">
+                    <div class="tl-tech">
+                        <span class="tag">Dubbo</span>
+                        <span class="tag">Zookeeper</span>
+                        <span class="tag">Spring MVC</span>
+                        <span class="tag">SSM</span>
+                        <span class="tag">MySQL</span>
+                        <span class="tag">WebService</span>
+                    </div>
+                    <ul>
+                        <li><strong>物联网管理平台（2017-2020）</strong>：集成三大运营商物联网卡底层业务接口，实现客户管理、账单处理、卡生命周期管理（白名单、空中写卡、订单、充值、销户等）。承担半年研发经理工作，负责月初流量/短信账单自动化出账、吉林联通最优套餐处理、停机保号减免等核心业务。基于 Spring Cloud 微服务开发"物联网帮手"微信小程序（登录、流量查询、充值、续费、白名单）。</li>
+                        <li><strong>短信平台（2020-2021）</strong>：负责桂林银行短信平台优化（Logo 优化、菜单伸缩、bug 修复、部署文档编写）；国家电网短信平台（webservice 接口定制开发、安全漏洞修复、程序打包部署）；线上数据维护及问题定位。</li>
+                        <li><strong>运维与故障排查</strong>：熟练使用 Arthas、jstack、top、tail 等工具定位线上问题，如账单出账异常（脏数据除零）、ASR 服务内存泄漏（JNI 缓冲区未释放）等，制定改进计划并推动落地。</li>
+                    </ul>
+                    <div class="code-block">
+                        <span class="cmt">// 物联网账单出账异常排查（2025.08）</span>
+                        tail -n 300 /hskj/logs/iot_platform_manager_service/iot.log.2025-09-08
+                        <span class="cmt"># 发现执行至"更新费用"中断，进一步查看 catalina.out</span>
+                        tail -n 300 /hskj/tomcat_iot_platform_dubbo/logs/catalina.out
+                        <span class="cmt"># 定位到 Data truncation: Division by 0 → 脏数据导致除零异常</span>
+                        <span class="kw">UPDATE</span> <span class="fn">iot_bill</span> <span class="kw">SET</span> over_fee = total / <span class="num">0</span> <span class="cmt">-- 触发异常</span>
+                        <span class="cmt"># 修复脏数据后重新出账，并补充日志监控告警</span>
+                    </div>
                 </div>
-                <span class="tl-date">2017.08 – 2021.02</span>
-            </div>
-            <div class="tl-tech">
-                <span>Dubbo</span><span>Zookeeper</span><span>Spring MVC</span>
-                <span>SSM</span><span>MySQL</span><span>WebService</span>
-            </div>
-            <div class="tl-body">
-                <ul>
-                    <li><strong>物联网管理平台（2017-2020）</strong>：集成三大运营商物联网卡底层业务接口，实现客户管理、账单处理、卡生命周期管理（白名单、空中写卡、订单、充值、销户等）。承担半年研发经理工作，负责月初流量/短信账单自动化出账、吉林联通最优套餐处理、停机保号减免等核心业务。基于 Spring Cloud 微服务开发"物联网帮手"微信小程序（登录、流量查询、充值、续费、白名单）。</li>
-                    <li><strong>短信平台（2020-2021）</strong>：负责桂林银行短信平台优化（Logo 优化、菜单伸缩、bug 修复、部署文档编写）；国家电网短信平台（webservice 接口定制开发、安全漏洞修复、程序打包部署）；线上数据维护及问题定位。</li>
-                    <li><strong>运维与故障排查</strong>：熟练使用 Arthas、jstack、top、tail 等工具定位线上问题，如账单出账异常（脏数据除零）、ASR 服务内存泄漏（JNI 缓冲区未释放）等，制定改进计划并推动落地。</li>
-                </ul>
-            </div>
-            <div class="code-block">
-                <span class="cmt">// 物联网账单出账异常排查（2025.08）</span>
-                tail -n 300 /hskj/logs/iot_platform_manager_service/iot.log.2025-09-08
-                <span class="cmt"># 发现执行至"更新费用"中断，进一步查看 catalina.out</span>
-                tail -n 300 /hskj/tomcat_iot_platform_dubbo/logs/catalina.out
-                <span class="cmt"># 定位到 Data truncation: Division by 0 → 脏数据导致除零异常</span>
-                <span class="kw">UPDATE</span> <span class="fn">iot_bill</span> <span class="kw">SET</span> over_fee = total / <span class="num">0</span> <span class="cmt">-- 触发异常</span>
-                <span class="cmt"># 修复脏数据后重新出账，并补充日志监控告警</span>
             </div>
         </div>
-
     </div>
 </section>
 
 <!-- ===== 页脚 ===== -->
-<footer class="footer">
-    <i class="fas fa-code"></i> 简历持续更新 · 部署于 GitHub Pages
+<footer class="footer" id="contact">
+    <div class="foot-brand">GUO·ZHEN<span>·CHENG</span></div>
+    <div class="foot-links">
+        <a href="mailto:2321523917@qq.com"><span class="dot"></span>2321523917@qq.com</a>
+        <a href="#"><span class="dot"></span>Ethan.github.io</a>
+    </div>
+    <div class="foot-note">简历持续更新 · 部署于 GitHub Pages</div>
 </footer>
 
 <!-- ===== Lightbox ===== -->
@@ -1193,6 +1428,29 @@
 
 <!-- ===== JavaScript ===== -->
 <script>
+    // ===== 滚动入场动效 =====
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (e.isIntersecting) {
+                    e.target.classList.add('in');
+                    io.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        revealEls.forEach(function (el) { io.observe(el); });
+    } else {
+        revealEls.forEach(function (el) { el.classList.add('in'); });
+    }
+
+    // ===== 项目卡片折叠 =====
+    function toggleProj(btn) {
+        const card = btn.closest('.proj-card');
+        const open = card.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+
     // ===== Lightbox =====
     function openLightbox(src) {
         const lb = document.getElementById('lightbox');
@@ -1202,7 +1460,6 @@
             lb.classList.add('active');
             document.body.style.overflow = 'hidden';
         } else {
-            // 如果是占位图，弹窗提示
             alert('项目截图待补充，敬请期待！');
         }
     }
@@ -1213,8 +1470,7 @@
         document.body.style.overflow = '';
     }
 
-    // ESC 键关闭
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') closeLightbox();
     });
 
@@ -1222,17 +1478,16 @@
     const toggle = document.getElementById('navToggle');
     const menu = document.getElementById('navMenu');
 
-    toggle.addEventListener('click', function() {
+    toggle.addEventListener('click', function () {
         menu.classList.toggle('active');
         const icon = this.querySelector('i');
         icon.className = menu.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
     });
 
-    document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.addEventListener('click', () => {
+    document.querySelectorAll('.nav-menu a').forEach(function (link) {
+        link.addEventListener('click', function () {
             menu.classList.remove('active');
-            const icon = toggle.querySelector('i');
-            icon.className = 'fas fa-bars';
+            toggle.querySelector('i').className = 'fas fa-bars';
         });
     });
 
@@ -1240,15 +1495,15 @@
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-menu a');
 
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop - 80;
+        sections.forEach(function (section) {
+            const sectionTop = section.offsetTop - 90;
             if (window.scrollY >= sectionTop) {
                 current = section.getAttribute('id');
             }
         });
-        navLinks.forEach(link => {
+        navLinks.forEach(function (link) {
             link.classList.remove('active');
             if (link.getAttribute('href') === '#' + current) {
                 link.classList.add('active');
@@ -1256,11 +1511,11 @@
         });
     });
 
-    // ===== 头像占位：如果图片加载失败，显示首字母 =====
-    document.addEventListener('DOMContentLoaded', function() {
+    // ===== 头像占位 =====
+    document.addEventListener('DOMContentLoaded', function () {
         const avatarImg = document.getElementById('avatarImg');
         if (avatarImg) {
-            avatarImg.addEventListener('error', function() {
+            avatarImg.addEventListener('error', function () {
                 this.style.display = 'none';
                 const fallback = document.getElementById('avatarFallback');
                 if (fallback) fallback.style.display = 'flex';
