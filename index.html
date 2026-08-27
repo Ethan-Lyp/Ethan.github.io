@@ -23,7 +23,7 @@
             color: #d6e2f0;
             line-height: 1.8;
             padding: 0 24px;
-            padding-top: 70px; /* 为固定导航栏留出空间 */
+            padding-top: 70px;
         }
 
         .container {
@@ -47,7 +47,6 @@
             height: 64px;
             display: flex;
             align-items: center;
-            transition: background 0.3s ease;
         }
 
         .nav-container {
@@ -60,7 +59,7 @@
         }
 
         .nav-logo {
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 700;
             color: #ffffff;
             letter-spacing: 2px;
@@ -98,7 +97,6 @@
             background: rgba(108, 158, 255, 0.15);
         }
 
-        /* 移动端汉堡菜单 */
         .nav-toggle {
             display: none;
             color: #a0bcd9;
@@ -112,7 +110,7 @@
             color: #ffffff;
         }
 
-        /* ===== HERO 顶部 ===== */
+        /* ===== HERO ===== */
         .hero {
             min-height: calc(100vh - 64px);
             display: flex;
@@ -120,31 +118,68 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 60px 20px 50px;
+            padding: 50px 20px 40px;
             border-bottom: 1px solid #1e2d42;
             scroll-margin-top: 64px;
         }
 
-        .hero h1 {
-            font-size: 4.4rem;
-            font-weight: 700;
-            letter-spacing: 8px;
-            color: #ffffff;
-            margin-bottom: 2px;
+        /* 头像 + 名字 行 */
+        .hero-top {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
-        .hero .subtitle {
-            font-size: 1.5rem;
+        .hero-avatar {
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            border: 3px solid #6c9eff;
+            box-shadow: 0 0 30px rgba(108, 158, 255, 0.25);
+            overflow: hidden;
+            flex-shrink: 0;
+            background: #1a2a40;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #6c9eff;
+        }
+
+        .hero-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 15%;  /* 将图片下移，露出头顶 */
+            display: block;
+        }
+
+        .hero-name-group {
+            text-align: left;
+        }
+
+        .hero-name-group h1 {
+            font-size: 3.6rem;
+            font-weight: 700;
+            letter-spacing: 6px;
+            color: #ffffff;
+            line-height: 1.1;
+        }
+
+        .hero-name-group .subtitle {
+            font-size: 1.3rem;
             font-weight: 300;
             color: #8eb3d6;
-            margin-bottom: 4px;
         }
 
-        .hero .badge {
-            font-size: 1rem;
+        .hero-name-group .badge {
+            font-size: 0.95rem;
             color: #5a7a9a;
-            letter-spacing: 3px;
-            margin-bottom: 18px;
+            letter-spacing: 2px;
         }
 
         .hero .desc {
@@ -154,10 +189,11 @@
             line-height: 2;
             border-top: 1px solid #1e2d42;
             padding-top: 22px;
+            margin-top: 8px;
         }
 
         .hero .scroll {
-            margin-top: 48px;
+            margin-top: 42px;
             color: #4a6a8a;
             font-size: 0.78rem;
             letter-spacing: 4px;
@@ -182,11 +218,10 @@
 
         /* ===== 通用章节 ===== */
         section {
-            padding: 64px 0 48px;
+            padding: 60px 0 44px;
             border-bottom: 1px solid #1a283c;
             scroll-margin-top: 70px;
         }
-
         section:last-of-type {
             border-bottom: none;
         }
@@ -195,7 +230,7 @@
             font-size: 1.9rem;
             font-weight: 600;
             color: #ffffff;
-            margin-bottom: 26px;
+            margin-bottom: 24px;
             display: flex;
             align-items: center;
             gap: 14px;
@@ -218,42 +253,100 @@
             margin-left: 2px;
         }
 
-        /* ===== 01 作品展示 ===== */
-        .showcase-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 22px;
+        /* ===== 01 作品展示 - 列表布局 ===== */
+        .showcase-list {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
         }
 
-        .showcase-card {
+        .showcase-item {
+            display: flex;
+            gap: 22px;
             background: #111e30;
             border-radius: 14px;
-            padding: 22px 20px 18px;
+            padding: 18px 20px;
             border: 1px solid #1e3048;
             transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+            align-items: flex-start;
         }
 
-        .showcase-card:hover {
-            transform: translateY(-6px);
+        .showcase-item:hover {
+            transform: translateY(-3px);
             border-color: #3a5a7a;
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
         }
 
-        .showcase-card .title {
-            font-size: 1.08rem;
+        /* 缩略图 */
+        .showcase-thumb {
+            flex-shrink: 0;
+            width: 200px;
+            height: 130px;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid #2a4060;
+            background: #0a1522;
+            position: relative;
+            transition: border-color 0.2s;
+        }
+
+        .showcase-thumb:hover {
+            border-color: #6c9eff;
+        }
+
+        .showcase-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .showcase-thumb .placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: #5a7a9a;
+            background: linear-gradient(135deg, #1a2a40, #0d1628);
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .showcase-thumb .placeholder i {
+            font-size: 2rem;
+            color: #3a5a7a;
+        }
+
+        /* 右侧内容 */
+        .showcase-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .showcase-body .item-title {
+            font-size: 1.1rem;
             font-weight: 600;
             color: #ffffff;
             margin-bottom: 2px;
         }
 
-        .showcase-card .tags {
+        .showcase-body .item-sub {
+            font-size: 0.85rem;
+            color: #6c9eff;
+            font-weight: 400;
+        }
+
+        .showcase-body .item-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
-            margin: 8px 0 10px;
+            margin: 6px 0 8px;
         }
 
-        .showcase-card .tags span {
+        .showcase-body .item-tags span {
             background: #1a2a40;
             color: #8eb3d6;
             font-size: 0.7rem;
@@ -262,22 +355,36 @@
             border: 1px solid #2a4060;
         }
 
-        .showcase-card .desc {
-            font-size: 0.9rem;
+        .showcase-body .item-desc {
+            font-size: 0.92rem;
             color: #b0cce5;
             line-height: 1.7;
         }
 
-        .showcase-card .links {
-            margin-top: 14px;
+        .showcase-body .item-links {
+            margin-top: 10px;
             display: flex;
-            gap: 22px;
+            gap: 20px;
             font-size: 0.85rem;
             color: #6c9eff;
         }
 
-        .showcase-card .links i {
+        .showcase-body .item-links i {
             margin-right: 6px;
+        }
+
+        .showcase-body .item-links span {
+            cursor: default;
+        }
+
+        .showcase-body .item-links a {
+            color: #6c9eff;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .showcase-body .item-links a:hover {
+            color: #8eb3ff;
         }
 
         /* ===== 02 个人信息 ===== */
@@ -454,11 +561,68 @@
             word-break: break-all;
         }
 
-        .code-block .kw { color: #c792ea; }
-        .code-block .fn { color: #82aaff; }
-        .code-block .str { color: #c3e88d; }
-        .code-block .num { color: #f78c6c; }
-        .code-block .cmt { color: #546e7a; }
+        .code-block .kw {
+            color: #c792ea;
+        }
+        .code-block .fn {
+            color: #82aaff;
+        }
+        .code-block .str {
+            color: #c3e88d;
+        }
+        .code-block .num {
+            color: #f78c6c;
+        }
+        .code-block .cmt {
+            color: #546e7a;
+        }
+
+        /* ===== Lightbox ===== */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            cursor: pointer;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: 12px;
+            border: 1px solid #3a5a7a;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            object-fit: contain;
+        }
+
+        .lightbox .close-btn {
+            position: absolute;
+            top: 24px;
+            right: 32px;
+            font-size: 2.4rem;
+            color: #8eb3d6;
+            cursor: pointer;
+            transition: color 0.25s;
+            background: none;
+            border: none;
+        }
+
+        .lightbox .close-btn:hover {
+            color: #ffffff;
+        }
 
         /* ===== 页脚 ===== */
         .footer {
@@ -484,16 +648,36 @@
                 padding: 0 12px;
                 height: 58px;
             }
-            .hero h1 {
-                font-size: 2.8rem;
-                letter-spacing: 4px;
+
+            .hero-top {
+                gap: 18px;
             }
-            .hero .subtitle {
-                font-size: 1.2rem;
+            .hero-avatar {
+                width: 220px;
+                height: 220px;
+                font-size: 2rem;
             }
+            .hero-name-group h1 {
+                font-size: 2.2rem;
+                letter-spacing: 3px;
+            }
+            .hero-name-group .subtitle {
+                font-size: 1.05rem;
+            }
+
             .section-title {
                 font-size: 1.5rem;
             }
+
+            .showcase-item {
+                flex-direction: column;
+                padding: 16px;
+            }
+            .showcase-thumb {
+                width: 100%;
+                height: 180px;
+            }
+
             .profile-table {
                 grid-template-columns: 1fr 1fr;
                 padding: 14px 16px;
@@ -501,6 +685,7 @@
             .profile-table .row .label {
                 min-width: 44px;
             }
+
             .tl-item .tl-head {
                 flex-direction: column;
                 align-items: flex-start;
@@ -509,11 +694,7 @@
             .skills-grid {
                 grid-template-columns: 1fr;
             }
-            .showcase-grid {
-                grid-template-columns: 1fr;
-            }
 
-            /* 移动端菜单 */
             .nav-menu {
                 position: fixed;
                 top: 58px;
@@ -526,7 +707,7 @@
                 gap: 4px;
                 border-bottom: 1px solid #1e2d42;
                 display: none;
-                box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
             }
             .nav-menu.active {
                 display: flex;
@@ -547,459 +728,546 @@
             .profile-table {
                 grid-template-columns: 1fr;
             }
-            .hero h1 {
-                font-size: 2.0rem;
+            .hero-avatar {
+                width: 60px;
+                height: 60px;
+                font-size: 1.6rem;
+            }
+            .hero-name-group h1 {
+                font-size: 1.8rem;
             }
             section {
-                padding: 40px 0 30px;
+                padding: 36px 0 28px;
             }
             .about-box {
                 padding: 14px 16px;
             }
-            .showcase-card {
-                padding: 16px 14px;
+            .showcase-thumb {
+                height: 140px;
+            }
+            .lightbox {
+                padding: 16px;
+            }
+            .lightbox .close-btn {
+                top: 12px;
+                right: 16px;
+                font-size: 1.8rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== 固定顶部导航栏 ===== -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="#" class="nav-logo">郭振城</a>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#showcase" class="active">作品展示</a></li>
-                <li><a href="#profile">个人信息</a></li>
-                <li><a href="#about">个人简介</a></li>
-                <li><a href="#skills">个人能力</a></li>
-                <li><a href="#experience">工作经历</a></li>
-                <li><a href="#projects">项目经历</a></li>
-            </ul>
-            <button class="nav-toggle" id="navToggle" aria-label="切换菜单">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </nav>
+<!-- ===== 固定顶部导航栏 ===== -->
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="#" class="nav-logo">GUO·ZHEN<span>·CHENG</span></a>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="#showcase" class="active">作品</a></li>
+            <li><a href="#profile">信息</a></li>
+            <li><a href="#about">简介</a></li>
+            <li><a href="#skills">能力</a></li>
+            <li><a href="#experience">工作经历</a></li>
+            <li><a href="#projects">项目经历</a></li>
+        </ul>
+        <button class="nav-toggle" id="navToggle" aria-label="切换菜单">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</nav>
 
-    <!-- ===== HERO ===== -->
-    <header class="hero" id="home">
-        <h1>郭振城</h1>
-        <div class="subtitle">Java &amp; 全栈开发 · AI Agent 应用</div>
-        <div class="badge">企业级 AI 智能体 · 大模型应用 · 微服务架构</div>
-        <div class="desc">
-            7 年+ 后端开发经验，近两年深耕 AI 智能体平台与全栈架构。<br />
-            专注 Agent 调度体系、MCP 工具体系、RAG 知识库、上下文工程等大模型应用落地。
+<!-- ===== HERO ===== -->
+<header class="hero" id="home">
+    <div class="hero-top">
+        <div class="hero-avatar" id="avatarContainer">
+            <!-- 头像图片：将你的头像图片放到 images/avatar.jpg，或修改 src 路径 -->
+            <img src="images/avatar.png" alt="郭振城" id="avatarImg" onerror="this.style.display='none';document.getElementById('avatarFallback').style.display='flex';" />
+            <div id="avatarFallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-size:2.8rem;font-weight:700;color:#6c9eff;background:linear-gradient(135deg,#1a2a40,#0d1628);">郭</div>
         </div>
-        <div class="scroll">
-            SCROLL <i class="fas fa-chevron-down"></i>
+        <div class="hero-name-group">
+            <h1>郭振城</h1>
+            <div class="subtitle">Java &amp; 全栈开发 · AI Agent 应用</div>
+            <div class="badge">企业级 AI 智能体 · 大模型应用 · 微服务架构</div>
         </div>
-    </header>
+    </div>
+    <div class="desc">
+        7 年+ 后端开发经验，近两年深耕 AI 智能体平台与全栈架构。<br />
+        专注 Agent 调度体系、MCP 工具体系、RAG 知识库、上下文工程等大模型应用落地。
+    </div>
+    <div class="scroll">
+        SCROLL <i class="fas fa-chevron-down"></i>
+    </div>
+</header>
 
-    <!-- ===== 01 作品展示 ===== -->
-    <section id="showcase">
-        <div class="container">
-            <div class="section-title">
-                <span class="num">01</span> 作品展示 <span class="en">Showcase</span>
-            </div>
-            <div class="showcase-grid">
+<!-- ===== 01 作品展示（列表布局） ===== -->
+<section id="showcase">
+    <div class="container">
+        <div class="section-title">
+            <span class="num">01</span> 作品展示 <span class="en">Showcase</span>
+        </div>
+        <div class="showcase-list">
 
-                <div class="showcase-card">
-                    <div class="title">AIOS 企业级 AI Agent 平台</div>
-                    <div class="tags">
+            <!-- 作品1：AIOS -->
+            <div class="showcase-item">
+                <div class="showcase-thumb" onclick="openLightbox('images/landing-page.jpeg')">
+                    <img src="images/landing-page.jpeg" alt="AIOS 平台截图" />
+                </div>
+                <div class="showcase-body">
+                    <div class="item-title">AIOS 企业级 AI Agent 平台</div>
+                    <div class="item-tags">
                         <span>Python / FastAPI</span>
                         <span>React 18</span>
                         <span>Docker</span>
                     </div>
-                    <div class="card-image">
-                        <img src="images/landing-page.jpeg" alt="AIOS 平台截图" style="width:100%; border-radius:8px; margin:8px 0 10px; border:1px solid #1e3048;">
-                    </div>
-                    <div class="desc">
+                    <div class="item-desc">
                         多租户 AI Agent 操作系统，基于 ReAct 循环，集成 MCP 协议、多模态、审批流、记忆系统。独立完成全栈开发与生产环境部署。
                     </div>
-                    <div class="links">
+                    <div class="item-links">
                         <span><i class="fas fa-video"></i> 视频</span>
-                        <span><i class="fas fa-link"></i> 案例分享</span>
+                        <a href="https://xiaoyin.dbcpaas.com:8097/workspace/projects/h5_bf3141/index.html" target="_blank"><i class="fas fa-link"></i> 案例分享</a>
                     </div>
                 </div>
+            </div>
 
-                <div class="showcase-card">
-                    <div class="title">SmartLink 智能营销平台</div>
-                    <div class="tags">
+            <!-- 作品2：SmartLink -->
+            <div class="showcase-item">
+                <div class="showcase-thumb" onclick="openLightbox('images/smartlink-placeholder.png')">
+                    <img src="images/smartlink-placeholder.png" alt="SmartLink 平台截图" />
+                </div>
+                <div class="showcase-body">
+                    <div class="item-title">SmartLink 智能营销平台</div>
+                    <div class="item-tags">
                         <span>Spring Boot</span>
                         <span>Spring Cloud</span>
                         <span>React</span>
                     </div>
-                    <div class="desc">
+                    <div class="item-desc">
                         融合 5G 消息、短信、IVR 语音、小红书等渠道，提供从客户分群、营销任务到数据报表的完整闭环，支持多租户 SaaS 架构。
                     </div>
-                    <div class="links">
+                    <div class="item-links">
                         <span><i class="fas fa-video"></i> 视频</span>
-                        <span><i class="fas fa-link"></i> 案例分享</span>
+                        <a href="https://smartlink.baiwix.com:6001/admin/ai-dashboard" target="_blank"><i class="fas fa-link"></i> 案例分享</a>
                     </div>
                 </div>
+            </div>
 
-                <div class="showcase-card">
-                    <div class="title">新加坡互动数字人（中国银行）</div>
-                    <div class="tags">
+            <!-- 作品3：数字人 -->
+            <div class="showcase-item">
+                <div class="showcase-thumb" onclick="openLightbox('images/digital-human-placeholder.jpg')">
+                    <div class="placeholder" id="placeholder-digital">
+                        <i class="fas fa-user-robot"></i>
+                        <span>数字人</span>
+                    </div>
+                    <img src="images/digital-human-placeholder.jpg" alt="数字人系统截图" style="display:none;" onerror="this.style.display='none';document.getElementById('placeholder-digital').style.display='flex';" />
+                </div>
+                <div class="showcase-body">
+                    <div class="item-title">新加坡互动数字人（中国银行）</div>
+                    <div class="item-tags">
                         <span>Spring Boot</span>
                         <span>Zego SDK</span>
                         <span>Azure Speech</span>
                     </div>
-                    <div class="desc">
+                    <div class="item-desc">
                         为新加坡中行营业厅打造实时互动数字人，集成 Zego 数字人 SDK、Azure 语音识别、Dify AI，支持中英双语及一体机适配。
                     </div>
-                    <div class="links">
+                    <div class="item-links">
                         <span><i class="fas fa-video"></i> 视频</span>
                         <span><i class="fas fa-link"></i> 案例分享</span>
                     </div>
                 </div>
+            </div>
 
-                <div class="showcase-card">
-                    <div class="title">物联网管理平台</div>
-                    <div class="tags">
+            <!-- 作品4：物联网 -->
+            <div class="showcase-item">
+                <div class="showcase-thumb" onclick="openLightbox('images/iot-placeholder.jpg')">
+                    <div class="placeholder" id="placeholder-iot">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>物联网</span>
+                    </div>
+                    <img src="images/iot-placeholder.jpg" alt="物联网平台截图" style="display:none;" onerror="this.style.display='none';document.getElementById('placeholder-iot').style.display='flex';" />
+                </div>
+                <div class="showcase-body">
+                    <div class="item-title">物联网管理平台</div>
+                    <div class="item-tags">
                         <span>Dubbo</span>
                         <span>Zookeeper</span>
                         <span>Spring MVC</span>
                     </div>
-                    <div class="desc">
+                    <div class="item-desc">
                         集成三大运营商物联网卡业务，实现客户管理、账单处理、卡生命周期管理，承担半年研发经理工作。
                     </div>
-                    <div class="links">
+                    <div class="item-links">
                         <span><i class="fas fa-video"></i> 视频</span>
                         <span><i class="fas fa-link"></i> 案例分享</span>
                     </div>
                 </div>
-
             </div>
+
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- ===== 02 个人信息 ===== -->
-    <section id="profile">
-        <div class="container">
-            <div class="section-title">
-                <span class="num">02</span> 个人信息 <span class="en">Profile</span>
-            </div>
-            <div class="profile-table">
-                <div class="row"><span class="label">姓名</span><span class="value">郭振城</span></div>
-                <div class="row"><span class="label">性别</span><span class="value">男</span></div>
-                <div class="row"><span class="label">出生年月</span><span class="value">1993.11</span></div>
-                <div class="row"><span class="label">学历</span><span class="value">本科</span></div>
-                <div class="row"><span class="label">专业</span><span class="value">软件工程</span></div>
-                <div class="row"><span class="label">现居地</span><span class="value">福建 · 厦门</span></div>
-                <div class="row"><span class="label">邮箱</span><span class="value">2321523917@qq.com</span></div>
-                <div class="row"><span class="label">电话</span><span class="value">130 2397 3687</span></div>
-                <div class="row"><span class="label">英语</span><span class="value">CET-4</span></div>
-                <div class="row"><span class="label">经验</span><span class="value">7 年+</span></div>
-            </div>
+<!-- ===== 02 个人信息 ===== -->
+<section id="profile">
+    <div class="container">
+        <div class="section-title">
+            <span class="num">02</span> 个人信息 <span class="en">Profile</span>
         </div>
-    </section>
-
-    <!-- ===== 03 个人简介 ===== -->
-    <section id="about">
-        <div class="container">
-            <div class="section-title">
-                <span class="num">03</span> 个人简介 <span class="en">About</span>
-            </div>
-            <div class="about-box">
-                7 年+ Java 后端开发经验，近两年深耕 AI 智能体平台与全栈架构。具备 Agent 调度体系、MCP 工具体系、RAG 知识库、上下文工程等大模型应用落地经验。能够独立完成从后端架构设计、模型接入、工具体系建设到前端交互展示的完整 AI 应用开发流程。熟悉微服务、高并发、容器化部署，具备从 0 到 1 搭建企业级系统的能力。善于性能调优、故障排查，乐于技术分享与团队协作。多次获得公司绩效“优秀”评级，具备 T4 职级所需的专业知识、运维能力、开发能力、业务能力及架构能力。
-            </div>
+        <div class="profile-table">
+            <div class="row"><span class="label">姓名</span><span class="value">郭振城</span></div>
+            <div class="row"><span class="label">性别</span><span class="value">男</span></div>
+            <div class="row"><span class="label">出生年月</span><span class="value">1993.11</span></div>
+            <div class="row"><span class="label">学历</span><span class="value">本科</span></div>
+            <div class="row"><span class="label">专业</span><span class="value">软件工程</span></div>
+            <div class="row"><span class="label">现居地</span><span class="value">福建 · 厦门</span></div>
+            <div class="row"><span class="label">邮箱</span><span class="value">2321523917@qq.com</span></div>
+            <div class="row"><span class="label">电话</span><span class="value">130 2397 3687</span></div>
+            <div class="row"><span class="label">英语</span><span class="value">CET-4</span></div>
+            <div class="row"><span class="label">经验</span><span class="value">7 年+</span></div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- ===== 04 个人能力 ===== -->
-    <section id="skills">
-        <div class="container">
-            <div class="section-title">
-                <span class="num">04</span> 个人能力 <span class="en">Skills</span>
-            </div>
-            <div class="skills-grid">
-
-                <div class="skill">
-                    <span class="idx">01</span>
-                    <div class="info">
-                        <div class="name">Java / Spring 生态</div>
-                        <div class="desc">Spring Boot、Spring Cloud、MyBatis、Dubbo、微服务架构设计、高并发处理、JVM 调优</div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <span class="idx">02</span>
-                    <div class="info">
-                        <div class="name">AI 应用开发</div>
-                        <div class="desc">Agent 架构（ReAct）、MCP 协议、RAG 知识库、Prompt 工程、多模型接入调度（OpenAI/国内大模型）</div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <span class="idx">03</span>
-                    <div class="info">
-                        <div class="name">前端开发</div>
-                        <div class="desc">React 18、TypeScript、Ant Design、响应式设计、流式交互（SSE/WebSocket）</div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <span class="idx">04</span>
-                    <div class="info">
-                        <div class="name">数据库与中间件</div>
-                        <div class="desc">MySQL、Redis、Qdrant 向量数据库、性能调优、索引设计、缓存策略、批量处理优化</div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <span class="idx">05</span>
-                    <div class="info">
-                        <div class="name">运维与部署</div>
-                        <div class="desc">Docker、Docker Compose、Nginx、Jenkins、CI/CD、华为云生产环境部署、故障排查（Arthas、jstack、top）</div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <span class="idx">06</span>
-                    <div class="info">
-                        <div class="name">多媒体 AI</div>
-                        <div class="desc">ASR（自研/微软）、TTS、数字人（Zego）、语音克隆、实时语音交互、音频转码（opus→mp3）</div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <span class="idx">07</span>
-                    <div class="info">
-                        <div class="name">Python 全栈</div>
-                        <div class="desc">FastAPI、Celery、SQLAlchemy、异步编程、AI 服务编排、多进程架构（Gunicorn+Uvicorn）</div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <span class="idx">08</span>
-                    <div class="info">
-                        <div class="name">设计模式与架构</div>
-                        <div class="desc">单例、观察者、工厂等设计模式；分布式系统设计、多租户 SaaS 架构、领域驱动设计</div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <span class="idx">09</span>
-                    <div class="info">
-                        <div class="name">业务能力</div>
-                        <div class="desc">物联网账单流程、语音通知对接、freeswitch 集成、国际短信/语音业务、营销平台全流程</div>
-                    </div>
-                </div>
-
-                <div class="skill">
-                    <span class="idx">10</span>
-                    <div class="info">
-                        <div class="name">团队协作与敬业</div>
-                        <div class="desc">主动沟通、任务协调、代码审查、文档沉淀（部署文档/经验总结）、加班攻坚、带教新员工</div>
-                    </div>
-                </div>
-
-            </div>
+<!-- ===== 03 个人简介 ===== -->
+<section id="about">
+    <div class="container">
+        <div class="section-title">
+            <span class="num">03</span> 个人简介 <span class="en">About</span>
         </div>
-    </section>
+        <div class="about-box">
+            7 年+ Java 后端开发经验，近两年深耕 AI 智能体平台与全栈架构。具备 Agent 调度体系、MCP 工具体系、RAG 知识库、上下文工程等大模型应用落地经验。能够独立完成从后端架构设计、模型接入、工具体系建设到前端交互展示的完整 AI 应用开发流程。熟悉微服务、高并发、容器化部署，具备从 0 到 1 搭建企业级系统的能力。善于性能调优、故障排查，乐于技术分享与团队协作。多次获得公司绩效"优秀"评级，具备 T4 职级所需的专业知识、运维能力、开发能力、业务能力及架构能力。
+        </div>
+    </div>
+</section>
 
-    <!-- ===== 05 工作经历 ===== -->
-    <section id="experience">
-        <div class="container">
-            <div class="section-title">
-                <span class="num">05</span> 工作经历 <span class="en">Experience</span>
+<!-- ===== 04 个人能力 ===== -->
+<section id="skills">
+    <div class="container">
+        <div class="section-title">
+            <span class="num">04</span> 个人能力 <span class="en">Skills</span>
+        </div>
+        <div class="skills-grid">
+
+            <div class="skill">
+                <span class="idx">01</span>
+                <div class="info">
+                    <div class="name">Java / Spring 生态</div>
+                    <div class="desc">Spring Boot、Spring Cloud、MyBatis、Dubbo、微服务架构设计、高并发处理、JVM 调优</div>
+                </div>
             </div>
 
-            <div class="tl-item">
-                <div class="tl-head">
-                    <div>
-                        <span class="tl-title">后端研发工程师</span>
-                        <span class="tl-org"> · 厦门集微科技 / AI与硬科技BU</span>
-                    </div>
-                    <span class="tl-date">2017.07 – 至今</span>
+            <div class="skill">
+                <span class="idx">02</span>
+                <div class="info">
+                    <div class="name">AI 应用开发</div>
+                    <div class="desc">Agent 架构（ReAct）、MCP 协议、RAG 知识库、Prompt 工程、多模型接入调度（OpenAI/国内大模型）</div>
                 </div>
-                <div class="tl-tech">
-                    <span>Java</span><span>Spring Boot</span><span>Spring Cloud</span>
-                    <span>Python</span><span>FastAPI</span><span>React</span><span>Docker</span>
+            </div>
+
+            <div class="skill">
+                <span class="idx">03</span>
+                <div class="info">
+                    <div class="name">前端开发</div>
+                    <div class="desc">React 18、TypeScript、Ant Design、响应式设计、流式交互（SSE/WebSocket）</div>
                 </div>
-                <div class="tl-body">
-                    <ul>
-                        <li><strong>AIOS 平台（2025-至今）</strong>：主导企业级 AI Agent 平台全栈开发，基于 FastAPI + React + Docker，实现多租户、MCP 协议、记忆系统；独立完成落地页系统、多语言国际化、5+ 智能体开发；性能优化（内存降低 60%，并发提升 4 倍）；负责华为云生产环境搭建与运维。</li>
-                        <li><strong>SmartLink 营销平台（2026-至今）</strong>：从零搭建 Spring Boot 多模块项目，设计多租户 SaaS 数据隔离；对接 5G 消息、短信、IVR、小红书等多渠道；基于 LLM Function Calling 实现 AI 问数、AI 雀报；完成前端工程及网格通 SSO 集成。</li>
-                        <li><strong>新加坡数字人（2024.08-2024.11）</strong>：独立完成项目架构、数据库设计及核心开发，集成 Zego 数字人 SDK、Azure 语音、Dify AI，支持中英双语及一体机适配；负责华为云部署与 Jenkins CI/CD。</li>
-                        <li><strong>物联网管理平台（2017-2020）</strong>：基于 Dubbo 集成三大运营商物联网卡接口，负责账单处理、卡生命周期、小程序（Spring Cloud）等核心模块，承担半年研发经理工作。</li>
-                        <li><strong>短信平台（2020-2021）</strong>：负责桂林银行、国家电网等客户短信平台优化，修复漏洞，定制 webservice 接口，编写部署文档。</li>
-                    </ul>
+            </div>
+
+            <div class="skill">
+                <span class="idx">04</span>
+                <div class="info">
+                    <div class="name">数据库与中间件</div>
+                    <div class="desc">MySQL、Redis、Qdrant 向量数据库、性能调优、索引设计、缓存策略、批量处理优化</div>
+                </div>
+            </div>
+
+            <div class="skill">
+                <span class="idx">05</span>
+                <div class="info">
+                    <div class="name">运维与部署</div>
+                    <div class="desc">Docker、Docker Compose、Nginx、Jenkins、CI/CD、华为云生产环境部署、故障排查（Arthas、jstack、top）</div>
+                </div>
+            </div>
+
+            <div class="skill">
+                <span class="idx">06</span>
+                <div class="info">
+                    <div class="name">多媒体 AI</div>
+                    <div class="desc">ASR（自研/微软）、TTS、数字人（Zego）、语音克隆、实时语音交互、音频转码（opus→mp3）</div>
+                </div>
+            </div>
+
+            <div class="skill">
+                <span class="idx">07</span>
+                <div class="info">
+                    <div class="name">Python 全栈</div>
+                    <div class="desc">FastAPI、Celery、SQLAlchemy、异步编程、AI 服务编排、多进程架构（Gunicorn+Uvicorn）</div>
+                </div>
+            </div>
+
+            <div class="skill">
+                <span class="idx">08</span>
+                <div class="info">
+                    <div class="name">设计模式与架构</div>
+                    <div class="desc">单例、观察者、工厂等设计模式；分布式系统设计、多租户 SaaS 架构、领域驱动设计</div>
+                </div>
+            </div>
+
+            <div class="skill">
+                <span class="idx">09</span>
+                <div class="info">
+                    <div class="name">业务能力</div>
+                    <div class="desc">物联网账单流程、语音通知对接、freeswitch 集成、国际短信/语音业务、营销平台全流程</div>
+                </div>
+            </div>
+
+            <div class="skill">
+                <span class="idx">10</span>
+                <div class="info">
+                    <div class="name">团队协作与敬业</div>
+                    <div class="desc">主动沟通、任务协调、代码审查、文档沉淀（部署文档/经验总结）、加班攻坚、带教新员工</div>
                 </div>
             </div>
 
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- ===== 06 项目经历 ===== -->
-    <section id="projects">
-        <div class="container">
-            <div class="section-title">
-                <span class="num">06</span> 项目经历 <span class="en">Projects</span>
-            </div>
-
-            <!-- 项目1：AIOS -->
-            <div class="tl-item">
-                <div class="tl-head">
-                    <div>
-                        <span class="tl-title">AIOS 企业级 AI Agent 平台</span>
-                        <span class="tl-org"> · 全栈开发 &amp; 运维</span>
-                    </div>
-                    <span class="tl-date">2025 – 2026</span>
-                </div>
-                <div class="tl-tech">
-                    <span>Python 3.11</span><span>FastAPI</span><span>React 18</span>
-                    <span>TypeScript</span><span>Docker</span><span>Qdrant</span><span>Celery</span>
-                </div>
-                <div class="tl-body">
-                    <ul>
-                        <li><strong>核心功能</strong>：独立设计“一键生成落地页”系统，解决 CORS 跨域、MySQL 虚拟列插入、短链标识符等技术难点；主导平台多语言国际化（新增印尼语、马来语、越南语、泰语）。</li>
-                        <li><strong>Agent 建设</strong>：开发“客多多”“BI 演示”“停车场运营分析”等 5+ 智能体，优化 MCP 协议 HTTP 传输适配；实现网格通 SSO 单点登录、AI 雀报 H5 页面、国内语音回执接口集成。</li>
-                        <li><strong>性能优化</strong>：排查并修复 Playwright Chromium 进程 OOM，限制浏览器实例数，内存占用降低 60%+；后端从单进程 Uvicorn 升级为 Gunicorn+Uvicorn（4 workers），并发能力提升 4 倍。</li>
-                        <li><strong>部署运维</strong>：独立完成华为云（8核32GB/500GB SSD/Debian 11）生产环境搭建，配置 Nginx、MySQL 8、Redis、Docker Compose；编写多阶段 Dockerfile（Python 3.11-slim + Node.js 20 + Playwright + spaCy），配置健康检查、资源限制、Volume 挂载；编写完整部署文档，管理 9 个 MCP 微服务。</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- 项目2：SmartLink -->
-            <div class="tl-item">
-                <div class="tl-head">
-                    <div>
-                        <span class="tl-title">SmartLink 智能营销平台</span>
-                        <span class="tl-org"> · 全栈开发</span>
-                    </div>
-                    <span class="tl-date">2026.02 – 至今</span>
-                </div>
-                <div class="tl-tech">
-                    <span>Spring Boot</span><span>Spring Cloud</span><span>MyBatis</span>
-                    <span>MySQL 8</span><span>Redis</span><span>React</span><span>Jenkins</span>
-                </div>
-                <div class="tl-body">
-                    <ul>
-                        <li>从零搭建 Spring Boot 多模块（smart-admin/smart-common/smart-framework/smart-system），设计 RESTful API 及统一返回格式。</li>
-                        <li>设计并实现多租户 SaaS 数据隔离方案，支持租户额度管理、套餐配置及每月自动重置机制；完成营销任务全流程（创建、编辑、优化提升、自动创建下一轮）。</li>
-                        <li>对接 5G 消息（RCS）平台（模板创建审核、素材管理、群发下发、状态报告回执、定时同步），支持回落普短；集成短信通道（多供应商可配置、移动 CMPP 扩展字段签名校验）；开发 IVR 语音外呼（批量下发、异步处理、多通道可配置）；开发小红书内容自动发送及 DashScope 文生图/视频生成。</li>
-                        <li>基于 LLM Function Calling 构建 AI 工具注册与调度框架，实现 AI 问数（自然语言查询营销数据）和 AI 雀报（生成营销分析报告）；实现营销飞轮模式，基于 ROI 自动生成优化建议。</li>
-                        <li>基于 React + TypeScript + Ant Design 搭建前端，完成融合通信、营销管理、客户分群、数据报表等模块；实现 AI Copilot 对话面板（流式输出、Agent 步骤可视化）；完成网格通 SSO 单点登录及移动端适配。</li>
-                        <li>负责华为云服务器环境（CentOS 7.9 + 8核32GB + 500GB SSD）搭建，独立完成 Nginx、MySQL 8、JDK 17、Redis 等中间件配置；编写 Dockerfile 实现前后端容器化；对接 Jenkins 自动化 CI/CD 流水线。</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- 项目3：新加坡数字人 -->
-            <div class="tl-item">
-                <div class="tl-head">
-                    <div>
-                        <span class="tl-title">新加坡互动数字人（中国银行）</span>
-                        <span class="tl-org"> · 后端开发 &amp; 部署</span>
-                    </div>
-                    <span class="tl-date">2024.08 – 2024.11</span>
-                </div>
-                <div class="tl-tech">
-                    <span>Spring Boot 2.7</span><span>MyBatis</span><span>Thymeleaf</span>
-                    <span>MySQL 8</span><span>Zego SDK</span><span>Azure Speech</span><span>Dify AI</span>
-                </div>
-                <div class="tl-body">
-                    <ul>
-                        <li>独立完成项目技术选型、架构设计、数据库设计（4 张核心业务表），搭建 Spring Boot + MyBatis + Thymeleaf 三层架构，实现统一响应、加解密、全局异常处理。</li>
-                        <li>对接即构（Zego）AIGC API，实现数字人模特查询、形象详情、音色管理、视频流创建/驱动/中断/停止；实现 Zego Token04 鉴权，支持 WebRTC 拉流播放。</li>
-                        <li>集成 Dify AI 对话平台（Chat API + Workflow API），实现流式（SSE）和非流式 AI 对话，将 AI 回答实时驱动数字人播报；支持关键词匹配和固定问答。</li>
-                        <li>集成 Azure Cognitive Services 语音识别和自建 ASR，实现浏览器录音 → 音频上传 → 语音转文本 → AI 对话 → 数字人播报的完整语音交互链路。</li>
-                        <li>优化一体机多分辨率适配（SD 480×360、HD+ 1920×1080、2K 2560×1440）；对接人脸识别服务，实现人脸录入、识别成功自动触发数字人主动问候。</li>
-                        <li>使用 jQuery + Bootstrap + Thymeleaf 实现响应式数字人交互页面，集成 Zego 播放器、RecordRTC 录音、Vudio 音频可视化，支持中英文国际化。</li>
-                        <li>负责华为云生产环境部署（8核32GB、CentOS 7.9），安装配置 Nginx、MySQL 8.0、JDK 17、Redis；编写 Nginx 配置实现反向代理和静态资源分离；对接 Jenkins 自动化部署；配置生产环境参数，使用 Keystore 加密敏感配置。</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- 项目4：物联网管理平台 + 短信平台（合并展示） -->
-            <div class="tl-item">
-                <div class="tl-head">
-                    <div>
-                        <span class="tl-title">物联网管理平台 &amp; 短信平台</span>
-                        <span class="tl-org"> · 核心开发</span>
-                    </div>
-                    <span class="tl-date">2017.08 – 2021.02</span>
-                </div>
-                <div class="tl-tech">
-                    <span>Dubbo</span><span>Zookeeper</span><span>Spring MVC</span>
-                    <span>SSM</span><span>MySQL</span><span>WebService</span>
-                </div>
-                <div class="tl-body">
-                    <ul>
-                        <li><strong>物联网管理平台（2017-2020）</strong>：集成三大运营商物联网卡底层业务接口，实现客户管理、账单处理、卡生命周期管理（白名单、空中写卡、订单、充值、销户等）。承担半年研发经理工作，负责月初流量/短信账单自动化出账、吉林联通最优套餐处理、停机保号减免等核心业务。基于 Spring Cloud 微服务开发“物联网帮手”微信小程序（登录、流量查询、充值、续费、白名单）。</li>
-                        <li><strong>短信平台（2020-2021）</strong>：负责桂林银行短信平台优化（Logo 优化、菜单伸缩、bug 修复、部署文档编写）；国家电网短信平台（webservice 接口定制开发、安全漏洞修复、程序打包部署）；线上数据维护及问题定位。</li>
-                        <li><strong>运维与故障排查</strong>：熟练使用 Arthas、jstack、top、tail 等工具定位线上问题，如账单出账异常（脏数据除零）、ASR 服务内存泄漏（JNI 缓冲区未释放）等，制定改进计划并推动落地。</li>
-                    </ul>
-                </div>
-                <div class="code-block">
-                    <span class="cmt">// 物联网账单出账异常排查（2025.08）</span>
-                    tail -n 300 /hskj/logs/iot_platform_manager_service/iot.log.2025-09-08
-                    <span class="cmt"># 发现执行至“更新费用”中断，进一步查看 catalina.out</span>
-                    tail -n 300 /hskj/tomcat_iot_platform_dubbo/logs/catalina.out
-                    <span class="cmt"># 定位到 Data truncation: Division by 0 → 脏数据导致除零异常</span>
-                    <span class="kw">UPDATE</span> <span class="fn">iot_bill</span> <span class="kw">SET</span> over_fee = total / <span class="num">0</span> <span class="cmt">-- 触发异常</span>
-                    <span class="cmt"># 修复脏数据后重新出账，并补充日志监控告警</span>
-                </div>
-            </div>
-
+<!-- ===== 05 工作经历 ===== -->
+<section id="experience">
+    <div class="container">
+        <div class="section-title">
+            <span class="num">05</span> 工作经历 <span class="en">Experience</span>
         </div>
-    </section>
 
-    <!-- ===== 页脚 ===== -->
-    <footer class="footer">
-        <i class="fas fa-code"></i> 简历持续更新 · 部署于 GitHub Pages
-    </footer>
+        <div class="tl-item">
+            <div class="tl-head">
+                <div>
+                    <span class="tl-title">后端研发工程师</span>
+                    <span class="tl-org"> · 厦门集微科技 / AI与硬科技BU</span>
+                </div>
+                <span class="tl-date">2017.07 – 至今</span>
+            </div>
+            <div class="tl-tech">
+                <span>Java</span><span>Spring Boot</span><span>Spring Cloud</span>
+                <span>Python</span><span>FastAPI</span><span>React</span><span>Docker</span>
+            </div>
+            <div class="tl-body">
+                <ul>
+                    <li><strong>AIOS 平台（2025-至今）</strong>：主导企业级 AI Agent 平台全栈开发，基于 FastAPI + React + Docker，实现多租户、MCP 协议、记忆系统；独立完成落地页系统、多语言国际化、5+ 智能体开发；性能优化（内存降低 60%，并发提升 4 倍）；负责华为云生产环境搭建与运维。</li>
+                    <li><strong>SmartLink 营销平台（2026-至今）</strong>：从零搭建 Spring Boot 多模块项目，设计多租户 SaaS 数据隔离；对接 5G 消息、短信、IVR、小红书等多渠道；基于 LLM Function Calling 实现 AI 问数、AI 雀报；完成前端工程及网格通 SSO 集成。</li>
+                    <li><strong>新加坡数字人（2024.08-2024.11）</strong>：独立完成项目架构、数据库设计及核心开发，集成 Zego 数字人 SDK、Azure 语音、Dify AI，支持中英双语及一体机适配；负责华为云部署与 Jenkins CI/CD。</li>
+                    <li><strong>物联网管理平台（2017-2020）</strong>：基于 Dubbo 集成三大运营商物联网卡接口，负责账单处理、卡生命周期、小程序（Spring Cloud）等核心模块，承担半年研发经理工作。</li>
+                    <li><strong>短信平台（2020-2021）</strong>：负责桂林银行、国家电网等客户短信平台优化，修复漏洞，定制 webservice 接口，编写部署文档。</li>
+                </ul>
+            </div>
+        </div>
 
-    <!-- ===== 移动端菜单交互 & 滚动高亮 ===== -->
-    <script>
-        // 汉堡菜单切换
-        const toggle = document.getElementById('navToggle');
-        const menu = document.getElementById('navMenu');
+    </div>
+</section>
 
-        toggle.addEventListener('click', function() {
-            menu.classList.toggle('active');
-            // 切换图标
-            const icon = this.querySelector('i');
-            if (menu.classList.contains('active')) {
-                icon.className = 'fas fa-times';
-            } else {
-                icon.className = 'fas fa-bars';
+<!-- ===== 06 项目经历 ===== -->
+<section id="projects">
+    <div class="container">
+        <div class="section-title">
+            <span class="num">06</span> 项目经历 <span class="en">Projects</span>
+        </div>
+
+        <!-- 项目1：AIOS -->
+        <div class="tl-item">
+            <div class="tl-head">
+                <div>
+                    <span class="tl-title">AIOS 企业级 AI Agent 平台</span>
+                    <span class="tl-org"> · 全栈开发 &amp; 运维</span>
+                </div>
+                <span class="tl-date">2025 – 2026</span>
+            </div>
+            <div class="tl-tech">
+                <span>Python 3.11</span><span>FastAPI</span><span>React 18</span>
+                <span>TypeScript</span><span>Docker</span><span>Qdrant</span><span>Celery</span>
+            </div>
+            <div class="tl-body">
+                <ul>
+                    <li><strong>核心功能</strong>：独立设计"一键生成落地页"系统，解决 CORS 跨域、MySQL 虚拟列插入、短链标识符等技术难点；主导平台多语言国际化（新增印尼语、马来语、越南语、泰语）。</li>
+                    <li><strong>Agent 建设</strong>：开发"客多多""BI 演示""停车场运营分析"等 5+ 智能体，优化 MCP 协议 HTTP 传输适配；实现网格通 SSO 单点登录、AI 雀报 H5 页面、国内语音回执接口集成。</li>
+                    <li><strong>性能优化</strong>：排查并修复 Playwright Chromium 进程 OOM，限制浏览器实例数，内存占用降低 60%+；后端从单进程 Uvicorn 升级为 Gunicorn+Uvicorn（4 workers），并发能力提升 4 倍。</li>
+                    <li><strong>部署运维</strong>：独立完成华为云（8核32GB/500GB SSD/Debian 11）生产环境搭建，配置 Nginx、MySQL 8、Redis、Docker Compose；编写多阶段 Dockerfile（Python 3.11-slim + Node.js 20 + Playwright + spaCy），配置健康检查、资源限制、Volume 挂载；编写完整部署文档，管理 9 个 MCP 微服务。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 项目2：SmartLink -->
+        <div class="tl-item">
+            <div class="tl-head">
+                <div>
+                    <span class="tl-title">SmartLink 智能营销平台</span>
+                    <span class="tl-org"> · 全栈开发</span>
+                </div>
+                <span class="tl-date">2026.02 – 至今</span>
+            </div>
+            <div class="tl-tech">
+                <span>Spring Boot</span><span>Spring Cloud</span><span>MyBatis</span>
+                <span>MySQL 8</span><span>Redis</span><span>React</span><span>Jenkins</span>
+            </div>
+            <div class="tl-body">
+                <ul>
+                    <li>从零搭建 Spring Boot 多模块（smart-admin/smart-common/smart-framework/smart-system），设计 RESTful API 及统一返回格式。</li>
+                    <li>设计并实现多租户 SaaS 数据隔离方案，支持租户额度管理、套餐配置及每月自动重置机制；完成营销任务全流程（创建、编辑、优化提升、自动创建下一轮）。</li>
+                    <li>对接 5G 消息（RCS）平台（模板创建审核、素材管理、群发下发、状态报告回执、定时同步），支持回落普短；集成短信通道（多供应商可配置、移动 CMPP 扩展字段签名校验）；开发 IVR 语音外呼（批量下发、异步处理、多通道可配置）；开发小红书内容自动发送及 DashScope 文生图/视频生成。</li>
+                    <li>基于 LLM Function Calling 构建 AI 工具注册与调度框架，实现 AI 问数（自然语言查询营销数据）和 AI 雀报（生成营销分析报告）；实现营销飞轮模式，基于 ROI 自动生成优化建议。</li>
+                    <li>基于 React + TypeScript + Ant Design 搭建前端，完成融合通信、营销管理、客户分群、数据报表等模块；实现 AI Copilot 对话面板（流式输出、Agent 步骤可视化）；完成网格通 SSO 单点登录及移动端适配。</li>
+                    <li>负责华为云服务器环境（CentOS 7.9 + 8核32GB + 500GB SSD）搭建，独立完成 Nginx、MySQL 8、JDK 17、Redis 等中间件配置；编写 Dockerfile 实现前后端容器化；对接 Jenkins 自动化 CI/CD 流水线。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 项目3：新加坡数字人 -->
+        <div class="tl-item">
+            <div class="tl-head">
+                <div>
+                    <span class="tl-title">新加坡互动数字人（中国银行）</span>
+                    <span class="tl-org"> · 后端开发 &amp; 部署</span>
+                </div>
+                <span class="tl-date">2024.08 – 2024.11</span>
+            </div>
+            <div class="tl-tech">
+                <span>Spring Boot 2.7</span><span>MyBatis</span><span>Thymeleaf</span>
+                <span>MySQL 8</span><span>Zego SDK</span><span>Azure Speech</span><span>Dify AI</span>
+            </div>
+            <div class="tl-body">
+                <ul>
+                    <li>独立完成项目技术选型、架构设计、数据库设计（4 张核心业务表），搭建 Spring Boot + MyBatis + Thymeleaf 三层架构，实现统一响应、加解密、全局异常处理。</li>
+                    <li>对接即构（Zego）AIGC API，实现数字人模特查询、形象详情、音色管理、视频流创建/驱动/中断/停止；实现 Zego Token04 鉴权，支持 WebRTC 拉流播放。</li>
+                    <li>集成 Dify AI 对话平台（Chat API + Workflow API），实现流式（SSE）和非流式 AI 对话，将 AI 回答实时驱动数字人播报；支持关键词匹配和固定问答。</li>
+                    <li>集成 Azure Cognitive Services 语音识别和自建 ASR，实现浏览器录音 → 音频上传 → 语音转文本 → AI 对话 → 数字人播报的完整语音交互链路。</li>
+                    <li>优化一体机多分辨率适配（SD 480×360、HD+ 1920×1080、2K 2560×1440）；对接人脸识别服务，实现人脸录入、识别成功自动触发数字人主动问候。</li>
+                    <li>使用 jQuery + Bootstrap + Thymeleaf 实现响应式数字人交互页面，集成 Zego 播放器、RecordRTC 录音、Vudio 音频可视化，支持中英文国际化。</li>
+                    <li>负责华为云生产环境部署（8核32GB、CentOS 7.9），安装配置 Nginx、MySQL 8.0、JDK 17、Redis；编写 Nginx 配置实现反向代理和静态资源分离；对接 Jenkins 自动化部署；配置生产环境参数，使用 Keystore 加密敏感配置。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 项目4：物联网管理平台 + 短信平台 -->
+        <div class="tl-item">
+            <div class="tl-head">
+                <div>
+                    <span class="tl-title">物联网管理平台 &amp; 短信平台</span>
+                    <span class="tl-org"> · 核心开发</span>
+                </div>
+                <span class="tl-date">2017.08 – 2021.02</span>
+            </div>
+            <div class="tl-tech">
+                <span>Dubbo</span><span>Zookeeper</span><span>Spring MVC</span>
+                <span>SSM</span><span>MySQL</span><span>WebService</span>
+            </div>
+            <div class="tl-body">
+                <ul>
+                    <li><strong>物联网管理平台（2017-2020）</strong>：集成三大运营商物联网卡底层业务接口，实现客户管理、账单处理、卡生命周期管理（白名单、空中写卡、订单、充值、销户等）。承担半年研发经理工作，负责月初流量/短信账单自动化出账、吉林联通最优套餐处理、停机保号减免等核心业务。基于 Spring Cloud 微服务开发"物联网帮手"微信小程序（登录、流量查询、充值、续费、白名单）。</li>
+                    <li><strong>短信平台（2020-2021）</strong>：负责桂林银行短信平台优化（Logo 优化、菜单伸缩、bug 修复、部署文档编写）；国家电网短信平台（webservice 接口定制开发、安全漏洞修复、程序打包部署）；线上数据维护及问题定位。</li>
+                    <li><strong>运维与故障排查</strong>：熟练使用 Arthas、jstack、top、tail 等工具定位线上问题，如账单出账异常（脏数据除零）、ASR 服务内存泄漏（JNI 缓冲区未释放）等，制定改进计划并推动落地。</li>
+                </ul>
+            </div>
+            <div class="code-block">
+                <span class="cmt">// 物联网账单出账异常排查（2025.08）</span>
+                tail -n 300 /hskj/logs/iot_platform_manager_service/iot.log.2025-09-08
+                <span class="cmt"># 发现执行至"更新费用"中断，进一步查看 catalina.out</span>
+                tail -n 300 /hskj/tomcat_iot_platform_dubbo/logs/catalina.out
+                <span class="cmt"># 定位到 Data truncation: Division by 0 → 脏数据导致除零异常</span>
+                <span class="kw">UPDATE</span> <span class="fn">iot_bill</span> <span class="kw">SET</span> over_fee = total / <span class="num">0</span> <span class="cmt">-- 触发异常</span>
+                <span class="cmt"># 修复脏数据后重新出账，并补充日志监控告警</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ===== 页脚 ===== -->
+<footer class="footer">
+    <i class="fas fa-code"></i> 简历持续更新 · 部署于 GitHub Pages
+</footer>
+
+<!-- ===== Lightbox ===== -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="close-btn" onclick="closeLightbox()">&times;</button>
+    <img id="lightboxImg" src="" alt="放大预览" onclick="event.stopPropagation();" />
+</div>
+
+<!-- ===== JavaScript ===== -->
+<script>
+    // ===== Lightbox =====
+    function openLightbox(src) {
+        const lb = document.getElementById('lightbox');
+        const img = document.getElementById('lightboxImg');
+        if (src) {
+            img.src = src;
+            lb.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        } else {
+            // 如果是占位图，弹窗提示
+            alert('项目截图待补充，敬请期待！');
+        }
+    }
+
+    function closeLightbox() {
+        const lb = document.getElementById('lightbox');
+        lb.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // ESC 键关闭
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeLightbox();
+    });
+
+    // ===== 汉堡菜单切换 =====
+    const toggle = document.getElementById('navToggle');
+    const menu = document.getElementById('navMenu');
+
+    toggle.addEventListener('click', function() {
+        menu.classList.toggle('active');
+        const icon = this.querySelector('i');
+        icon.className = menu.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
+    });
+
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            menu.classList.remove('active');
+            const icon = toggle.querySelector('i');
+            icon.className = 'fas fa-bars';
+        });
+    });
+
+    // ===== 滚动高亮 =====
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-menu a');
+
+    window.addEventListener('scroll', function() {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 80;
+            if (window.scrollY >= sectionTop) {
+                current = section.getAttribute('id');
             }
         });
-
-        // 点击导航链接后自动关闭移动端菜单
-        document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                menu.classList.remove('active');
-                const icon = toggle.querySelector('i');
-                icon.className = 'fas fa-bars';
-            });
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + current) {
+                link.classList.add('active');
+            }
         });
+    });
 
-        // 滚动时高亮当前章节对应的导航项
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.nav-menu a');
-
-        window.addEventListener('scroll', function() {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 80;
-                if (window.scrollY >= sectionTop) {
-                    current = section.getAttribute('id');
-                }
+    // ===== 头像占位：如果图片加载失败，显示首字母 =====
+    document.addEventListener('DOMContentLoaded', function() {
+        const avatarImg = document.getElementById('avatarImg');
+        if (avatarImg) {
+            avatarImg.addEventListener('error', function() {
+                this.style.display = 'none';
+                const fallback = document.getElementById('avatarFallback');
+                if (fallback) fallback.style.display = 'flex';
             });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === '#' + current) {
-                    link.classList.add('active');
-                }
-            });
-        });
-    </script>
+        }
+    });
+</script>
 
 </body>
 </html>
