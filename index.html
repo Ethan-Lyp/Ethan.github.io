@@ -397,23 +397,6 @@
             display: block;
         }
 
-        .show .media .placeholder {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            color: var(--accent);
-            font-size: 2.4rem;
-        }
-
-        .show .media .placeholder span {
-            font-size: 0.9rem;
-            color: var(--muted);
-        }
-
         .show .stage {
             position: absolute;
             top: 12px;
@@ -427,6 +410,95 @@
             border: 1px solid rgba(108, 158, 255, .45);
             padding: 3px 10px;
             border-radius: 999px;
+        }
+
+        .show .carousel {
+            position: absolute;
+            inset: 0;
+        }
+
+        .show .carousel-track {
+            display: flex;
+            height: 100%;
+            transition: transform .45s ease;
+        }
+
+        .show .carousel-track img {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            cursor: zoom-in;
+        }
+
+        .show .carousel-track .carousel-placeholder {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--accent);
+            font-size: 2.4rem;
+        }
+
+        .show .carousel-track .carousel-placeholder span {
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .show .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 3;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, .25);
+            background: rgba(10, 21, 34, .55);
+            color: #ffffff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            transition: background .3s, border-color .3s;
+        }
+
+        .show .carousel-btn:hover {
+            background: rgba(108, 158, 255, .45);
+            border-color: rgba(108, 158, 255, .6);
+        }
+
+        .show .carousel-btn.prev { left: 10px; }
+        .show .carousel-btn.next { right: 10px; }
+
+        .show .carousel-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            display: flex;
+            gap: 6px;
+        }
+
+        .show .carousel-dots .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .4);
+            cursor: pointer;
+            transition: background .3s, transform .3s;
+        }
+
+        .show .carousel-dots .dot.active {
+            background: var(--accent);
+            transform: scale(1.2);
         }
 
         .show .body {
@@ -1072,7 +1144,16 @@
             <div class="show reveal">
                 <div class="media">
                     <span class="stage">平台</span>
-                    <img src="images/landing-page.jpeg" alt="AIOS 平台截图" onclick="openLightbox('images/landing-page.jpeg')" />
+                    <div class="carousel" data-carousel>
+                        <div class="carousel-track">
+                            <img src="images/smartlink-page.png" alt="AIOS 首页截图" onclick="openLightbox('images/smartlink-page.png')" />
+                            <img src="images/agents.png" alt="AIOS Agent 截图" onclick="openLightbox('images/agents.png')" />
+                            <img src="images/landing-page.jpeg" alt="AIOS 平台截图" onclick="openLightbox('images/landing-page.jpeg')" />
+                        </div>
+                        <button class="carousel-btn prev" aria-label="上一张"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-btn next" aria-label="下一张"><i class="fas fa-chevron-right"></i></button>
+                        <div class="carousel-dots"></div>
+                    </div>
                 </div>
                 <div class="body">
                     <h3>AIOS 企业级 AI Agent 平台</h3>
@@ -1092,7 +1173,15 @@
             <div class="show reveal">
                 <div class="media">
                     <span class="stage">平台</span>
-                    <img src="images/smartlink-placeholder.png" alt="SmartLink 平台截图" onclick="openLightbox('images/smartlink-placeholder.png')" />
+                    <div class="carousel" data-carousel>
+                        <div class="carousel-track">
+                            <img src="images/smartlink-tools.png" alt="SmartLink 截图" onclick="openLightbox('images/smartlink-tools.png')" />
+                            <img src="images/smartlink-placeholder.png" alt="SmartLink 截图" onclick="openLightbox('images/smartlink-placeholder.png')" />
+                        </div>
+                        <button class="carousel-btn prev" aria-label="上一张"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-btn next" aria-label="下一张"><i class="fas fa-chevron-right"></i></button>
+                        <div class="carousel-dots"></div>
+                    </div>
                 </div>
                 <div class="body">
                     <h3>SmartLink 智能营销平台</h3>
@@ -1112,11 +1201,17 @@
             <div class="show reveal">
                 <div class="media">
                     <span class="stage">数字人</span>
-                    <div class="placeholder" id="placeholder-digital">
-                        <i class="fas fa-user-robot"></i>
-                        <span>数字人</span>
+                    <div class="carousel" data-carousel>
+                        <div class="carousel-track">
+                            <div class="carousel-placeholder">
+                                <i class="fas fa-user-robot"></i>
+                                <span>数字人</span>
+                            </div>
+                        </div>
+                        <button class="carousel-btn prev" aria-label="上一张"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-btn next" aria-label="下一张"><i class="fas fa-chevron-right"></i></button>
+                        <div class="carousel-dots"></div>
                     </div>
-                    <img src="images/digital-human-placeholder.jpg" alt="数字人系统截图" onerror="this.style.display='none';document.getElementById('placeholder-digital').style.display='flex';" onclick="openLightbox('images/digital-human-placeholder.jpg')" />
                 </div>
                 <div class="body">
                     <h3>新加坡互动数字人（中国银行）</h3>
@@ -1137,11 +1232,15 @@
             <div class="show reveal">
                 <div class="media">
                     <span class="stage">物联网</span>
-                    <div class="placeholder" id="placeholder-iot">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <span>物联网</span>
+                    <div class="carousel" data-carousel>
+                        <div class="carousel-track">
+                            <img src="images/iot_page.png" alt="物联网平台截图" onclick="openLightbox('images/iot_page.png')" />
+                            <img src="images/iot_cards.png" alt="物联网卡管理截图" onclick="openLightbox('images/iot_cards.png')" />
+                        </div>
+                        <button class="carousel-btn prev" aria-label="上一张"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-btn next" aria-label="下一张"><i class="fas fa-chevron-right"></i></button>
+                        <div class="carousel-dots"></div>
                     </div>
-                    <img src="images/iot-placeholder.jpg" alt="物联网平台截图" onerror="this.style.display='none';document.getElementById('placeholder-iot').style.display='flex';" onclick="openLightbox('images/iot-placeholder.jpg')" />
                 </div>
                 <div class="body">
                     <h3>物联网管理平台</h3>
@@ -1473,6 +1572,45 @@
 
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') closeLightbox();
+    });
+
+    // ===== 作品轮播 =====
+    document.querySelectorAll('[data-carousel]').forEach(function (carousel) {
+        const track = carousel.querySelector('.carousel-track');
+        const slides = Array.from(track.children);
+        const dotsEl = carousel.querySelector('.carousel-dots');
+        const prev = carousel.querySelector('.carousel-btn.prev');
+        const next = carousel.querySelector('.carousel-btn.next');
+        let index = 0;
+
+        if (slides.length <= 1) {
+            prev.style.display = 'none';
+            next.style.display = 'none';
+            dotsEl.style.display = 'none';
+            return;
+        }
+
+        slides.forEach(function (_, i) {
+            const dot = document.createElement('span');
+            dot.className = 'dot' + (i === 0 ? ' active' : '');
+            dot.addEventListener('click', function (e) {
+                e.stopPropagation();
+                goTo(i);
+            });
+            dotsEl.appendChild(dot);
+        });
+        const dots = Array.from(dotsEl.children);
+
+        function goTo(i) {
+            index = (i + slides.length) % slides.length;
+            track.style.transform = 'translateX(-' + (index * 100) + '%)';
+            dots.forEach(function (d, di) {
+                d.classList.toggle('active', di === index);
+            });
+        }
+
+        prev.addEventListener('click', function (e) { e.stopPropagation(); goTo(index - 1); });
+        next.addEventListener('click', function (e) { e.stopPropagation(); goTo(index + 1); });
     });
 
     // ===== 汉堡菜单切换 =====
